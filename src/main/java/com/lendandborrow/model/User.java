@@ -1,6 +1,8 @@
 package com.lendandborrow.model;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
 
 @Entity
 @Table(name="users")
@@ -11,10 +13,14 @@ public class User {
     private long id;
 
     @Column(name = "name")
-    private final String name;
+    private String name;
 
     @Column(name = "email")
-    private final String email;
+    private String email;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable
+    private Collection<Role> roles = new HashSet<>();
 
     public User() {
         this.name = "";
@@ -38,10 +44,29 @@ public class User {
         return email;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", email=" + email + '}';
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + getRoles() +
+                '}';
+    }
 }
