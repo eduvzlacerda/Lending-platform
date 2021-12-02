@@ -45,7 +45,7 @@ public class LendandborrowApplication {
 
 			userRepository.findAll().forEach(user -> userDataService.setUserRole(EnumRole.ADMIN, user.getId()));
 
-			userRepository.findAll().forEach(System.out::println);
+			//userRepository.findAll().forEach(System.out::println);
 
 			System.out.print("Finish!");
 
