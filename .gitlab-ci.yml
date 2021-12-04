@@ -1,0 +1,61 @@
+image: 
+  name: openjdk:11-jdk
+
+# Disable the Gradle daemon for Continuous Integration servers as correctness
+# is usually a priority over speed in CI environments. Using a fresh
+# runtime for each build is more reliable since the runtime is completely
+# isolated from any previous builds.
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - echo "systemProp.https.proxyHost=proxy.uibk.ac.at" >> gradle.properties
+  - echo "systemProp.https.proxyPort=3128" >> gradle.properties
+  - echo "systemProp.http.proxyHost=proxy.uibk.ac.at" >> gradle.properties
+  - echo "systemProp.http.proxyPort=3128" >> gradle.properties
+  - cat gradle.properties
+
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+#############################################################
+## Build
+
+
+build:
+  stage: build
+  script: ./gradlew assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull-push
+    paths:
+      - build
+      - .gradle
+
+
+#############################################################
+## Test
+
+test:
+  stage: test
+  script:
+    - ./gradlew check
+    - ./gradlew jacocoTestReport
+    - cat build/jacocoHtml/index.html | grep -o '<tfoot>.*</tfoot>'
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
