@@ -1,6 +1,7 @@
 package com.lendandborrow.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lendandborrow.model.enums.EnumArticleStatus;
 
 import javax.persistence.*;
 
@@ -18,6 +19,9 @@ public class Article {
 
     private String description;
 
+    @Enumerated(EnumType.STRING)
+    private EnumArticleStatus articleStatus;
+
     @ManyToOne
     @JsonIgnore
     private User owner;
@@ -25,11 +29,13 @@ public class Article {
     public Article() {
         this.title = "";
         this.description = "";
+        this.articleStatus = EnumArticleStatus.AVAILABLE;
     }
 
-    public Article(String title, String description) {
+    public Article(String title, String description, EnumArticleStatus articleStatus) {
         this.title = title;
         this.description = description;
+        this.articleStatus = articleStatus;
     }
 
     public long getId() {
@@ -58,5 +64,13 @@ public class Article {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public EnumArticleStatus getArticleStatus() {
+        return articleStatus;
+    }
+
+    public void setArticleStatus(EnumArticleStatus articleStatus) {
+        this.articleStatus = articleStatus;
     }
 }

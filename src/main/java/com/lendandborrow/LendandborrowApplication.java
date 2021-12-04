@@ -4,6 +4,7 @@ import com.lendandborrow.config.SwaggerConfig;
 import com.lendandborrow.model.Article;
 import com.lendandborrow.model.Role;
 import com.lendandborrow.model.User;
+import com.lendandborrow.model.enums.EnumArticleStatus;
 import com.lendandborrow.model.enums.EnumRole;
 import com.lendandborrow.repositories.ArticleRepository;
 import com.lendandborrow.repositories.RoleRepository;
@@ -51,7 +52,7 @@ public class LendandborrowApplication {
 
 			User user = userRepository.findByName("John");
 
-			Article article = new Article("TITLE", "Content, description, etc.");
+			Article article = new Article("TITLE", "Content, description, etc.", EnumArticleStatus.AVAILABLE);
 
 			articleRepository.save(article);
 
