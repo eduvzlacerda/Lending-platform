@@ -14,3 +14,8 @@ A Platform to lend and borrow different articles
 - https://www.baeldung.com/spring-security-basic-authentication
 - https://www.baeldung.com/spring-boot-angular-web
 - https://www.baeldung.com/role-and-privilege-for-spring-security-registration
+- https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+
+# Swagger:
+
+Access swagger: http://localhost:8080/lab/swagger-ui/#/

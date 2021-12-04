@@ -1,5 +1,6 @@
 package com.lendandborrow;
 
+import com.lendandborrow.config.SwaggerConfig;
 import com.lendandborrow.model.Role;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.enums.EnumRole;
@@ -10,12 +11,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
-import javax.management.relation.RoleResult;
-import java.util.Collections;
 import java.util.stream.Stream;
 
 @SpringBootApplication
+@Import({SwaggerConfig.class})
 public class LendandborrowApplication {
 
 	public static void main(String[] args) {
@@ -47,7 +48,7 @@ public class LendandborrowApplication {
 
 			//userRepository.findAll().forEach(System.out::println);
 
-			System.out.print("Finish!");
+			//System.out.print("Finish!");
 
 		};
 
