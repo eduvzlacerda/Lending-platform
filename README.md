@@ -13,3 +13,4 @@ A Platform to lend and borrow different articles
 - https://www.baeldung.com/security-spring
 - https://www.baeldung.com/spring-security-basic-authentication
 - https://www.baeldung.com/spring-boot-angular-web
+- https://www.baeldung.com/role-and-privilege-for-spring-security-registration
