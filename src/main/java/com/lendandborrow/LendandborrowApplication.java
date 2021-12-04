@@ -23,7 +23,7 @@ public class LendandborrowApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LendandborrowApplication.class, args);
 	}
-
+/*
 	@Bean
 	CommandLineRunner init(
 			UserRepository userRepository,
@@ -55,5 +55,5 @@ public class LendandborrowApplication {
 		};
 
 	}
-
+*/
 }

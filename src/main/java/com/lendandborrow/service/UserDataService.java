@@ -1,8 +1,10 @@
 package com.lendandborrow.service;
 
+import com.lendandborrow.model.Article;
 import com.lendandborrow.model.Role;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.enums.EnumRole;
+import com.lendandborrow.repositories.ArticleRepository;
 import com.lendandborrow.repositories.RoleRepository;
 import com.lendandborrow.repositories.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,9 +23,16 @@ public class UserDataService {
 
     private PasswordEncoder passwordEncoder;
 
-    public UserDataService(RoleRepository roleRepository, UserRepository userRepository) {
+    final ArticleRepository articleRepository;
+
+    public UserDataService(
+            RoleRepository roleRepository,
+            ArticleRepository articleRepository,
+            UserRepository userRepository) {
+
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
+        this.articleRepository = articleRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
@@ -36,6 +45,16 @@ public class UserDataService {
         user.getRoles().add(role);
 
         userRepository.save(user);
+
+    }
+
+    public void addArticle(Article article, Long userId) {
+
+        User user = userRepository.findById(userId).orElseThrow();
+
+        article.setOwner(user);
+
+        articleRepository.save(article);
 
     }
 
