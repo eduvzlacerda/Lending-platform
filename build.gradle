@@ -39,7 +39,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	runtimeOnly 'org.postgresql:postgresql'
@@ -49,6 +48,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.0'
 
+	testImplementation 'org.apache.httpcomponents:httpclient'
 }
 
 test {
