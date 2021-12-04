@@ -19,3 +19,13 @@ A Platform to lend and borrow different articles
 # Swagger:
 
 Access swagger: http://localhost:8080/lab/swagger-ui/#/
+
+# Frontend
+
+In case of using Windows:
+1. Steps 1-3 on https://ccbill.com/kb/install-angular-on-windows
+2. navigate into angular-frontend folder via command line
+3. ng build
+4. ng serve --open
+5. hope it works
+

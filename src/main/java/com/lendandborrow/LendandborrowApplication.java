@@ -1,6 +1,7 @@
 package com.lendandborrow;
 
 import com.lendandborrow.config.SwaggerConfig;
+import com.lendandborrow.config.UserSecurityConfig;
 import com.lendandborrow.model.Role;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.enums.EnumRole;
