@@ -1,5 +1,6 @@
 package com.lendandborrow.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lendandborrow.model.enums.EnumRole;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private EnumRole name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users = new HashSet<>();
 

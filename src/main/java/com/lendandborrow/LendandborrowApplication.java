@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.stream.Stream;
 
@@ -40,6 +41,7 @@ public class LendandborrowApplication {
 					.forEach(name -> {
 
 						User user = new User(name, name.toLowerCase() + "@domain.com");
+						user.setPassword(new BCryptPasswordEncoder().encode("password"));
 						userRepository.save(user);
 
 			});
