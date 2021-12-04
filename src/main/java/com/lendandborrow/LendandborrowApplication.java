@@ -1,9 +1,11 @@
 package com.lendandborrow;
 
 import com.lendandborrow.config.SwaggerConfig;
+import com.lendandborrow.model.Article;
 import com.lendandborrow.model.Role;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.enums.EnumRole;
+import com.lendandborrow.repositories.ArticleRepository;
 import com.lendandborrow.repositories.RoleRepository;
 import com.lendandborrow.repositories.UserRepository;
 import com.lendandborrow.service.UserDataService;
@@ -27,6 +29,7 @@ public class LendandborrowApplication {
 	CommandLineRunner init(
 			UserRepository userRepository,
 			RoleRepository roleRepository,
+			ArticleRepository articleRepository,
 			UserDataService userDataService) {
 
 		return args -> {
@@ -45,6 +48,14 @@ public class LendandborrowApplication {
 			});
 
 			userRepository.findAll().forEach(user -> userDataService.setUserRole(EnumRole.ADMIN, user.getId()));
+
+			User user = userRepository.findByName("John");
+
+			Article article = new Article("TITLE", "Content, description, etc.");
+
+			articleRepository.save(article);
+
+			userDataService.addArticle(article, user.getId());
 
 			//userRepository.findAll().forEach(System.out::println);
 

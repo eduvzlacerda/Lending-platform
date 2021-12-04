@@ -22,6 +22,9 @@ public class User {
     @JoinTable
     private Collection<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "owner")
+    private Collection<Article> articles = new HashSet<>();
+
     public User() {
         this.name = "";
         this.email = "";
@@ -58,6 +61,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Collection<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Collection<Article> articles) {
+        this.articles = articles;
     }
 
     @Override
