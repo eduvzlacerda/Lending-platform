@@ -1,22 +1,9 @@
 package com.lendandborrow;
 
 import com.lendandborrow.config.SwaggerConfig;
-import com.lendandborrow.model.Article;
-import com.lendandborrow.model.Role;
-import com.lendandborrow.model.User;
-import com.lendandborrow.model.enums.EnumArticleStatus;
-import com.lendandborrow.model.enums.EnumRole;
-import com.lendandborrow.repositories.ArticleRepository;
-import com.lendandborrow.repositories.RoleRepository;
-import com.lendandborrow.repositories.UserRepository;
-import com.lendandborrow.service.UserDataService;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-
-import java.util.stream.Stream;
 
 @SpringBootApplication
 @Import({SwaggerConfig.class})
@@ -25,45 +12,4 @@ public class LendandborrowApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LendandborrowApplication.class, args);
 	}
-
-	@Bean
-	CommandLineRunner init(
-			UserRepository userRepository,
-			RoleRepository roleRepository,
-			ArticleRepository articleRepository,
-			UserDataService userDataService) {
-
-		return args -> {
-
-			Stream
-					.of(EnumRole.values())
-					.forEach(enumRole -> roleRepository.save(new Role(enumRole)));
-
-			Stream
-					.of("John", "Julie", "Jennifer", "Helen", "Rachel")
-					.forEach(name -> {
-
-						User user = new User(name, name.toLowerCase() + "@domain.com");
-						userRepository.save(user);
-
-			});
-
-			userRepository.findAll().forEach(user -> userDataService.setUserRole(EnumRole.ADMIN, user.getId()));
-
-			User user = userRepository.findByName("John");
-
-			Article article = new Article("TITLE", "Content, description, etc.", EnumArticleStatus.AVAILABLE);
-
-			articleRepository.save(article);
-
-			userDataService.addArticle(article, user.getId());
-
-			//userRepository.findAll().forEach(System.out::println);
-
-			//System.out.print("Finish!");
-
-		};
-
-	}
-
 }
