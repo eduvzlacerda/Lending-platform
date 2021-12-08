@@ -2,7 +2,6 @@ package com.lendandborrow.controller;
 
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.UserDTO;
-import com.lendandborrow.repositories.UserRepository;
 import com.lendandborrow.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import static org.springframework.http.ResponseEntity.ok;
 @AllArgsConstructor
 public class UserController {
 
-
     private final UserService userService;
 
     @GetMapping
@@ -29,16 +27,10 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser( @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
 
         User user = userService.registerUser(convertUserDTOToUser(userDTO));
 
         return ok(convertUserToUserDTO(user));
     }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public boolean login(String email, String password) {
-        return userService.loginUser(email, password);
-    }
-
 }

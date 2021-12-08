@@ -34,7 +34,7 @@ public class UserService {
 
 
 
-    public void setUserRole(EnumRole enumRole, Long userId) {
+    public void setUserRole(EnumRole enumRole, UUID userId) {
 
         Role role = roleRepository.findRoleByName(enumRole.toString());
 
