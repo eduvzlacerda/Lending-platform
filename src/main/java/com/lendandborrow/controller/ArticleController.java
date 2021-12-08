@@ -1,9 +1,8 @@
 package com.lendandborrow.controller;
 
 import com.lendandborrow.model.Article;
-import com.lendandborrow.model.User;
 import com.lendandborrow.repositories.ArticleRepository;
-import com.lendandborrow.service.UserDataService;
+import com.lendandborrow.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,15 +13,15 @@ public class ArticleController {
 
     private final ArticleRepository articleRepository;
 
-    private final UserDataService userDataService;
+    private final UserService userService;
 
     public ArticleController(
             ArticleRepository articleRepository,
-            UserDataService userDataService) {
+            UserService userService) {
 
         this.articleRepository = articleRepository;
 
-        this.userDataService = userDataService;
+        this.userService = userService;
 
     }
 
@@ -39,7 +38,7 @@ public class ArticleController {
     @PostMapping("/articles")
     void addArticle(@RequestBody Article article, @RequestParam Long userId) {
 
-        this.userDataService.addArticle(article, userId);
+        this.userService.addArticle(article, userId);
 
     }
 

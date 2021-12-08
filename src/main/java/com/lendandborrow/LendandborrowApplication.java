@@ -1,20 +1,9 @@
 package com.lendandborrow;
 
 import com.lendandborrow.config.SwaggerConfig;
-import com.lendandborrow.model.Role;
-import com.lendandborrow.model.User;
-import com.lendandborrow.model.enums.EnumRole;
-import com.lendandborrow.repositories.RoleRepository;
-import com.lendandborrow.repositories.UserRepository;
-import com.lendandborrow.service.UserDataService;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.stream.Stream;
 
 @SpringBootApplication
 @Import({SwaggerConfig.class})

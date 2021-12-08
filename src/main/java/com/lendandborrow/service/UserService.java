@@ -3,19 +3,26 @@ package com.lendandborrow.service;
 import com.lendandborrow.model.Article;
 import com.lendandborrow.model.Role;
 import com.lendandborrow.model.User;
+import com.lendandborrow.model.dto.UserDTO;
 import com.lendandborrow.model.enums.EnumRole;
 import com.lendandborrow.repositories.ArticleRepository;
 import com.lendandborrow.repositories.RoleRepository;
 import com.lendandborrow.repositories.UserRepository;
+import com.lendandborrow.utils.converters.UserConverter;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserDataService {
+@AllArgsConstructor
+public class UserService {
 
     final RoleRepository roleRepository;
 
@@ -25,16 +32,7 @@ public class UserDataService {
 
     final ArticleRepository articleRepository;
 
-    public UserDataService(
-            RoleRepository roleRepository,
-            ArticleRepository articleRepository,
-            UserRepository userRepository) {
 
-        this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
-        this.articleRepository = articleRepository;
-        this.passwordEncoder = new BCryptPasswordEncoder();
-    }
 
     public void setUserRole(EnumRole enumRole, Long userId) {
 
@@ -48,7 +46,7 @@ public class UserDataService {
 
     }
 
-    public void addArticle(Article article, Long userId) {
+    public void addArticle(Article article, UUID userId) {
 
         User user = userRepository.findById(userId).orElseThrow();
 
@@ -58,14 +56,9 @@ public class UserDataService {
 
     }
 
-    public boolean registerUser(String name, String email, String password) {
-        if(name != null && email != null && password != null) {
-            User user = new User(name, email);
-            user.setPassword(passwordEncoder.encode(password));
-            userRepository.save(user);
-            return true;
-        }
-        return false;
+    public User registerUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     public boolean loginUser(String email, String password) {
@@ -80,4 +73,10 @@ public class UserDataService {
         return false;
     }
 
+    public List<UserDTO> findAllUsers() {
+        return userRepository.findAll()
+                .stream()
+                .map(UserConverter::convertUserToUserDTO)
+                .collect(Collectors.toList());
+    }
 }
