@@ -1,47 +1,51 @@
 package com.lendandborrow.controller;
 
 import com.lendandborrow.model.Article;
-import com.lendandborrow.repositories.ArticleRepository;
+import com.lendandborrow.model.User;
+import com.lendandborrow.model.dto.ArticleDTO;
+import com.lendandborrow.service.ArticleService;
 import com.lendandborrow.service.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.lendandborrow.utils.converters.ArticleConverter.convertArticleDTOToArticle;
+import static com.lendandborrow.utils.converters.ArticleConverter.convertArticleToArticleDTO;
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
+@RequestMapping("/articles")
 public class ArticleController {
 
-    private final ArticleRepository articleRepository;
-
+    private final ArticleService articleService;
     private final UserService userService;
 
-    public ArticleController(
-            ArticleRepository articleRepository,
-            UserService userService) {
-
-        this.articleRepository = articleRepository;
-
-        this.userService = userService;
-
+    @GetMapping
+    public ResponseEntity<List<ArticleDTO>> getArticles() {
+        return ok(articleService.findAllArticles());
     }
 
-    @GetMapping("/articles")
-    public List<Article> getArticles() {
-        return (List<Article>) articleRepository.findAll();
+    @PostMapping
+    public ResponseEntity<ArticleDTO> addArticle(@RequestBody ArticleDTO articleDTO) {
+        //find user via user service
+        User user = userService.getUser(articleDTO.getUserId());
+        if(user == null){
+            return new ResponseEntity<>(articleDTO, HttpStatus.NOT_FOUND);
+        }
+        Article article = convertArticleDTOToArticle(articleDTO,user);
+
+      return ok(convertArticleToArticleDTO(articleService.addArticle(article,user)));
     }
 
-    @DeleteMapping("/articles")
+    @DeleteMapping("articleId")
     public void deleteArticle(@RequestParam Long articleId) {
-        this.articleRepository.deleteById(articleId);
+        articleService.deleteById(articleId);
     }
-
-    @PostMapping("/articles")
-    void addArticle(@RequestBody Article article, @RequestParam Long userId) {
-
-        this.userService.addArticle(article, userId);
-
-    }
-
 
 
 }

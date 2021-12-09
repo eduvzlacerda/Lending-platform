@@ -10,10 +10,13 @@ import com.lendandborrow.repositories.RoleRepository;
 import com.lendandborrow.repositories.UserRepository;
 import com.lendandborrow.utils.converters.UserConverter;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
@@ -24,35 +27,21 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserService {
 
-    final RoleRepository roleRepository;
 
-    final UserRepository userRepository;
-
+    private final RoleRepository roleRepository;
+    private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
-    final ArticleRepository articleRepository;
 
+    public void setUserRole(EnumRole enumRole, long userId) {
 
+        Role role = roleRepository.findByName(enumRole.toString());
 
-    public void setUserRole(EnumRole enumRole, UUID userId) {
-
-        Role role = roleRepository.findRoleByName(enumRole.toString());
-
-        User user = userRepository.findById(userId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("user not found"));
 
         user.getRoles().add(role);
 
         userRepository.save(user);
-
-    }
-
-    public void addArticle(Article article, UUID userId) {
-
-        User user = userRepository.findById(userId).orElseThrow();
-
-        article.setOwner(user);
-
-        articleRepository.save(article);
 
     }
 
@@ -78,5 +67,10 @@ public class UserService {
                 .stream()
                 .map(UserConverter::convertUserToUserDTO)
                 .collect(Collectors.toList());
+    }
+
+    public User getUser(long userId) {
+        return userRepository.getById(userId);
+
     }
 }

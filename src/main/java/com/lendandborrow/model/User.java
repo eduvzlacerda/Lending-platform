@@ -2,6 +2,7 @@ package com.lendandborrow.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lendandborrow.model.dto.UserDTO;
+import com.lendandborrow.model.enums.EnumRole;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -21,17 +22,15 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @Builder.Default
-    private UUID id = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     @Column(name = "name")
     @NonNull
     @NotNull
     private String name;
 
-    @Column(name = "password")
-    @NonNull
-    @NotNull
+    @Column(name = "password",nullable = false)
     private String password;
 
     @Column(name = "email", unique=true)

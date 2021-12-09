@@ -19,11 +19,12 @@ public class UserDTO {
 
     @NotNull
     private String name;
-    @JsonIgnore
+
     private String password;
     @NotNull
     private String email;
     @NotNull
     private Set<Role> roles;
+    @JsonIgnore
     private Set<Article> articles;
 }

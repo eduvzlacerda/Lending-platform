@@ -3,7 +3,6 @@ package com.lendandborrow.utils.converters;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.UserDTO;
 import lombok.experimental.UtilityClass;
-import org.springframework.stereotype.Component;
 
 @UtilityClass
 public class UserConverter {
