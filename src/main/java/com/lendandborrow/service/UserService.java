@@ -51,6 +51,7 @@ public class UserService {
     }
 
     public boolean loginUser(String email, String password) {
+        //TO:DO USE PROPER SPRING AUTHETICATION
         if(email != null && password != null) {
             User user = userRepository.findByEmail(email);
             if (user != null) {

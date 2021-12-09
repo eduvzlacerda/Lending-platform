@@ -7,6 +7,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.rmi.server.UID;
+import java.util.UUID;
+
 import static com.lendandborrow.model.enums.EnumArticleStatus.HIDDEN;
 
 @Entity
@@ -19,8 +22,8 @@ import static com.lendandborrow.model.enums.EnumArticleStatus.HIDDEN;
 public class Article {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id ;
 
     @Column(name = "title")
     @NotNull

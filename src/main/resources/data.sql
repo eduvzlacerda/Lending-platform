@@ -1,3 +1,4 @@
+
 -- Users
 INSERT INTO users (id, name, email, password) VALUES (1, 'Admin', 'admin@mail.com', '$2a$10$9gSGhKccHJxLZROOiUByrOVTJh0dVsRIrYt//5HRRd7e7NiKlX6b6')
 INSERT INTO users (id, name, email, password) VALUES (2, 'User2', 'user2@mail.com', '$2a$10$9gSGhKccHJxLZROOiUByrOVTJh0dVsRIrYt//5HRRd7e7NiKlX6b6')
@@ -16,7 +17,8 @@ INSERT INTO users_roles (users_id, roles_id) VALUES (3, 3)
 INSERT INTO users_roles (users_id, roles_id) VALUES (4, 3)
 
 -- Articles
-INSERT INTO articles (id, description, title, article_status, owner_id) VALUES (1, 'Article1', 'Content of article 1', 'AVAILABLE', 2)
-INSERT INTO articles (id, description, title, article_status, owner_id) VALUES (2, 'Article2', 'Content of article 2', 'AVAILABLE', 3)
-INSERT INTO articles (id, description, title, article_status, owner_id) VALUES (3, 'Article3', 'Content of article 3', 'AVAILABLE', 4)
-INSERT INTO articles (id, description, title, article_status, owner_id) VALUES (4, 'Article4', 'Content of article 4', 'HIDDEN', 2)
+INSERT INTO articles (id,description, title, article_status, owner_id) VALUES (100,'Article1', 'Content of article 1', 'AVAILABLE', 2)
+INSERT INTO articles (id,description, title, article_status, owner_id) VALUES (200, 'Article2', 'Content of article 2', 'AVAILABLE', 3)
+INSERT INTO articles (id,description, title, article_status, owner_id) VALUES (300,'Article3', 'Content of article 3', 'AVAILABLE', 4)
+INSERT INTO articles (id,description, title, article_status, owner_id) VALUES (400, 'Article4','Content of article 4', 'HIDDEN', 2)
+

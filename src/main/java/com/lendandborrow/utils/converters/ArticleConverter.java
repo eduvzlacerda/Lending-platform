@@ -20,7 +20,6 @@ public class ArticleConverter {
     public static Article convertArticleDTOToArticle(ArticleDTO articleDTO, User owner) {
         return Article.builder()
                 .articleStatus(articleDTO.getArticleStatus())
-                .id(articleDTO.getId())
                 .description(articleDTO.getDescription())
                 .owner(owner)
                 .title(articleDTO.getTitle())

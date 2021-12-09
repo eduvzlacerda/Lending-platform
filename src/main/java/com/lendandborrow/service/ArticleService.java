@@ -3,12 +3,9 @@ package com.lendandborrow.service;
 import com.lendandborrow.model.Article;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.ArticleDTO;
-import com.lendandborrow.model.dto.UserDTO;
 import com.lendandborrow.repositories.ArticleRepository;
 import com.lendandborrow.utils.converters.ArticleConverter;
-import com.lendandborrow.utils.converters.UserConverter;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
