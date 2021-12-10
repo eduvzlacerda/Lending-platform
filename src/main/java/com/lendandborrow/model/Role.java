@@ -2,13 +2,20 @@ package com.lendandborrow.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lendandborrow.model.enums.EnumRole;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
+@Getter @Setter
+@NoArgsConstructor
 public class Role {
 
     @Id
@@ -17,34 +24,6 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     private EnumRole name;
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    private Collection<User> users = new HashSet<>();
-
-    public Role() {
-
-    }
-
-    public Role(EnumRole name) {
-        this.name = name;
-    }
-
-    public EnumRole getName() {
-        return name;
-    }
-
-    public void setName(EnumRole name) {
-        this.name = name;
-    }
-
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
-    }
 
     @Override
     public String toString() {

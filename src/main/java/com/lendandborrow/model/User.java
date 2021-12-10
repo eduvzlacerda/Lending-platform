@@ -1,96 +1,48 @@
 package com.lendandborrow.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lendandborrow.model.dto.UserDTO;
+import com.lendandborrow.model.enums.EnumRole;
+import com.sun.istack.NotNull;
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="users")
+@Builder(toBuilder = true)
 public class User {
+//TODO: Change id to UUID
+//TODO: Add reference to articles ?
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name")
+    @NotNull
     private String name;
 
-    @JsonIgnore
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String password;
 
     @Column(name = "email", unique=true)
+    @NotNull
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable
-    private Collection<Role> roles = new HashSet<>();
-
-    @OneToMany(mappedBy = "owner")
-    private Collection<Article> articles = new HashSet<>();
-
-    public User() {
-        this.name = "";
-        this.email = "";
-    }
-
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Collection<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(Collection<Article> articles) {
-        this.articles = articles;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", roles=" + getRoles() +
-                '}';
-    }
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @NotNull
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 }

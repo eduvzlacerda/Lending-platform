@@ -1,17 +1,19 @@
 package com.lendandborrow.repositories;
 
 import com.lendandborrow.model.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface RoleRepository extends CrudRepository<Role, Long> {
+import java.util.Optional;
 
-    @Query(
-            value = "SELECT * FROM ROLES r WHERE r.name = ?1",
-            nativeQuery = true
-    )
-    Role findRoleByName(String name);
+@Repository
+public interface RoleRepository extends JpaRepository<Role, Long> {
+
+   //TODO: never use the entity, always use optional and check if present,
+   // otherwise throw entity not found exception
+
+   Role findByName(String name);
 
 }

@@ -1,44 +1,36 @@
 package com.lendandborrow.controller;
 
 import com.lendandborrow.model.User;
-import com.lendandborrow.repositories.UserRepository;
-import com.lendandborrow.service.UserDataService;
+import com.lendandborrow.model.dto.UserDTO;
+import com.lendandborrow.service.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.lendandborrow.utils.converters.UserConverter.convertUserDTOToUser;
+import static com.lendandborrow.utils.converters.UserConverter.convertUserToUserDTO;
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    private final UserDataService userDataService;
-
-
-    public UserController(UserRepository userRepository, UserDataService userDataService) {
-        this.userRepository = userRepository;
-        this.userDataService = userDataService;
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getUsers() {
+        return ok(userService.findAllUsers());
     }
 
-    @GetMapping("/users")
-    public List<User> getUsers() {
-        return (List<User>) userRepository.findAll();
-    }
+    @PostMapping
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
 
-    @PostMapping("/users")
-    void addUser(@RequestBody User user) {
-        userRepository.save(user);
-    }
+        User user = userService.registerUser(convertUserDTOToUser(userDTO));
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public boolean register(String name, String email, String password) {
-        return userDataService.registerUser(name, email, password);
+        return ok(convertUserToUserDTO(user));
     }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public boolean login(String email, String password) {
-        return userDataService.loginUser(email, password);
-    }
-
 }
