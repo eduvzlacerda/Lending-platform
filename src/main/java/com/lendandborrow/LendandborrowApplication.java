@@ -9,7 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 @Import({SwaggerConfig.class})
-public class LendandborrowApplication {
+public class LendandborrowApplication{
+	//TODO : re-do dummie data to account for changes
 
 	public static void main(String[] args) {
 		SpringApplication.run(LendandborrowApplication.class, args);

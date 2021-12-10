@@ -1,7 +1,5 @@
 package com.lendandborrow.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lendandborrow.model.Article;
 import com.lendandborrow.model.Role;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,12 +7,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collection;
 import java.util.Set;
 
 @Builder(toBuilder = true)
 @AllArgsConstructor
-@Getter
+@Getter @Setter
 public class UserDTO {
 
     @NotNull
@@ -25,6 +22,5 @@ public class UserDTO {
     private String email;
     @NotNull
     private Set<Role> roles;
-    @JsonIgnore
-    private Set<Article> articles;
+
 }

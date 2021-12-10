@@ -20,6 +20,7 @@ import java.util.UUID;
 @Table(name="users")
 @Builder(toBuilder = true)
 public class User {
+//TODO: Change id to UUID
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,18 +35,15 @@ public class User {
     private String password;
 
     @Column(name = "email", unique=true)
-    @NonNull
     @NotNull
     private String email;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable
-    @NonNull
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @NotNull
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
-    @OneToMany(mappedBy = "owner")
-    private Set<Article> articles = new HashSet<>();
-
 
 }

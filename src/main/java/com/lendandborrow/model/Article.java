@@ -1,14 +1,10 @@
 package com.lendandborrow.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lendandborrow.model.enums.EnumArticleStatus;
 import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
-
-import java.rmi.server.UID;
-import java.util.UUID;
 
 import static com.lendandborrow.model.enums.EnumArticleStatus.HIDDEN;
 
@@ -20,6 +16,7 @@ import static com.lendandborrow.model.enums.EnumArticleStatus.HIDDEN;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Article {
+//TODO id to UUID
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
