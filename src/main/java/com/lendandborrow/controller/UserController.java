@@ -33,4 +33,5 @@ public class UserController {
 
         return ok(convertUserToUserDTO(user));
     }
+
 }

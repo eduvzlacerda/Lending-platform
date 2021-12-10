@@ -28,7 +28,7 @@ public class UserService {
     //TODO: method never used
     public void setUserRole(EnumRole enumRole, long userId) {
 
-        Role role = roleRepository.findByName(enumRole.toString());
+        Role role = roleRepository.findByName(enumRole);
 
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("user not found"));
 

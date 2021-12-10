@@ -18,7 +18,8 @@ before_script:
 
 stages:
   - build
-  - test
+  - junit-test
+  - integration-test
 
 cache:
   paths:
@@ -43,16 +44,42 @@ build:
 #############################################################
 ## Test
 
-test:
-  stage: test
+junit-test:
+  needs:
+    - build
+  stage: junit-test
   script:
-    - ./gradlew check
-    - ./gradlew jacocoTestReport
+    - ./gradlew junitTest
     - cat build/jacocoHtml/index.html | grep -o '<tfoot>.*</tfoot>'
   artifacts:
     when: always
     reports:
-      junit: build/test-results/test/**/TEST-*.xml
+      junit: build/test-results/junitTest/**/TEST-*.xml
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
+
+
+integration-test:
+  needs:
+    - build
+  services:
+    - postgres
+  variables:
+    POSTGRES_DB: lab
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: password
+  stage: integration-test
+  script:
+    - ./gradlew integrationTest -Pci
+    - cat build/jacocoHtml/index.html | grep -o '<tfoot>.*</tfoot>'
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/integrationTest/**/TEST-*.xml
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull

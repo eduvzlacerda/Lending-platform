@@ -2,10 +2,7 @@ package com.lendandborrow.model.dto;
 
 import com.lendandborrow.model.Role;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 

@@ -32,6 +32,7 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<ArticleDTO> addArticle(@RequestBody ArticleDTO articleDTO) {
+
         User user = userService.getUser(articleDTO.getUserId());
         if(user == null){
             return new ResponseEntity<>(articleDTO, HttpStatus.NOT_FOUND);
@@ -39,14 +40,16 @@ public class ArticleController {
         Article article = convertArticleDTOToArticle(articleDTO,user);
 
       return ok(convertArticleToArticleDTO(articleService.addArticle(article,user)));
+
     }
 
-    @DeleteMapping("articleId")
-    public void deleteArticle(@RequestParam Long articleId) {
+    @DeleteMapping("articleId/{id}")
+    public void deleteArticle(@PathVariable Long id) {
+
         //TODO: check if this article is referenced elsewhere, or create a property on the article which is deleted (ZonedDateTime)
         //this way you dont delete the data from the db but check on the findAll and fndById whereDeletedIsNull
 
-        articleService.deleteById(articleId);
+        articleService.deleteById(id);
     }
 
 }

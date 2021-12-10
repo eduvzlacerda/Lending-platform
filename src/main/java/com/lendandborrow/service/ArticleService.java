@@ -31,7 +31,12 @@ public class ArticleService {
         return article;
     }
 
-    //TODO : implement method
+
     public void deleteById(Long articleId) {
+
+        //TODO: return object?
+
+        this.articleRepository.deleteById(articleId);
+
     }
 }
