@@ -18,8 +18,10 @@ public class UserDTO {
     private String name;
 
     private String password;
+
     @NotNull
     private String email;
+
     @NotNull
     private Set<Role> roles;
 

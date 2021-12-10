@@ -15,12 +15,16 @@ import java.util.UUID;
 public class ArticleDTO {
 
     private long id;
+
     @NotNull
     private String title;
+
     private String description;
+
     @NotNull
     @JsonIgnore
     private EnumArticleStatus articleStatus;
+
     @NotNull
     private final long userId;
 }

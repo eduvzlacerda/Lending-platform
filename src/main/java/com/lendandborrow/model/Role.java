@@ -18,7 +18,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class Role {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -26,14 +25,10 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private EnumRole name;
 
-
-
     @Override
     public String toString() {
         return "Role{" +
                 "name=" + name +
                 '}';
     }
-
-
 }

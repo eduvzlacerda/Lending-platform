@@ -16,7 +16,8 @@ import static com.lendandborrow.model.enums.EnumArticleStatus.HIDDEN;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Article {
-//TODO id to UUID
+//TODO change id to UUID
+//TODO change reference to user to a single id and not a user reference ?
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,5 +37,4 @@ public class Article {
     @ManyToOne
     @NotNull
     private User owner;
-
 }

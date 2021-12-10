@@ -21,13 +21,13 @@ import java.util.UUID;
 @Builder(toBuilder = true)
 public class User {
 //TODO: Change id to UUID
+//TODO: Add reference to articles ?
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "name")
-    @NonNull
     @NotNull
     private String name;
 
@@ -45,5 +45,4 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
 }

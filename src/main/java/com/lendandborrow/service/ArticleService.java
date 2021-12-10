@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final UserService userService;
 
     public List<ArticleDTO> findAllArticles() {
         return articleRepository.findAll()
@@ -27,11 +26,12 @@ public class ArticleService {
     }
 
     public Article addArticle(Article article, User user) {
-       article.setOwner(user);
-       articleRepository.save(article);
-       return article;
+        article.setOwner(user);
+        articleRepository.save(article);
+        return article;
     }
 
+    //TODO : implement method
     public void deleteById(Long articleId) {
     }
 }

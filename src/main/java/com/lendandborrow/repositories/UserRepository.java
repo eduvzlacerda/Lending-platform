@@ -10,6 +10,9 @@ import java.util.UUID;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    //TODO: never use the entity, always use optional and check if present,
+    // otherwise throw entity not found exception
+
     User findByEmail(String email);
 
     User findByName(String name);
