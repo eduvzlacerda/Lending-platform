@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lendandborrow.model.Role;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.UserDTO;
-import com.lendandborrow.model.enums.EnumRole;
 import com.lendandborrow.repositories.RoleRepository;
 import com.lendandborrow.repositories.UserRepository;
+import com.lendandborrow.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,12 +38,15 @@ public class UserControllerTest {
     private UserRepository userRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Test
     void addUser() throws Exception {
 
-        Role adminRole = roleRepository.findByName(EnumRole.ADMIN);
+        Role adminRole = roleRepository.findById(1);
 
         UserDTO user = UserDTO.builder()
                 .name("Test")

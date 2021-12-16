@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 import static com.lendandborrow.utils.converters.ArticleConverter.convertArticleDTOToArticle;
 import static com.lendandborrow.utils.converters.ArticleConverter.convertArticleToArticleDTO;
@@ -32,7 +33,6 @@ public class ArticleController {
 
     @PostMapping
     public ResponseEntity<ArticleDTO> addArticle(@RequestBody ArticleDTO articleDTO) {
-
         User user = userService.getUser(articleDTO.getUserId());
         if(user == null){
             return new ResponseEntity<>(articleDTO, HttpStatus.NOT_FOUND);
@@ -40,16 +40,14 @@ public class ArticleController {
         Article article = convertArticleDTOToArticle(articleDTO,user);
 
       return ok(convertArticleToArticleDTO(articleService.addArticle(article,user)));
-
     }
 
-    @DeleteMapping("articleId/{id}")
-    public void deleteArticle(@PathVariable Long id) {
-
+    @DeleteMapping("articleId")
+    public void deleteArticle(@RequestParam UUID articleId) {
         //TODO: check if this article is referenced elsewhere, or create a property on the article which is deleted (ZonedDateTime)
         //this way you dont delete the data from the db but check on the findAll and fndById whereDeletedIsNull
 
-        articleService.deleteById(id);
+        articleService.deleteById(articleId);
     }
 
 }

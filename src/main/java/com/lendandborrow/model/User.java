@@ -1,13 +1,10 @@
 package com.lendandborrow.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lendandborrow.model.dto.UserDTO;
-import com.lendandborrow.model.enums.EnumRole;
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -20,12 +17,16 @@ import java.util.UUID;
 @Table(name="users")
 @Builder(toBuilder = true)
 public class User {
-//TODO: Change id to UUID
 //TODO: Add reference to articles ?
 
+//    @Id
+//    @Column(updatable = false, nullable = false, columnDefinition = "uuid DEFAULT uuid_generate_v4()")
+//    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @NotNull
+    @GeneratedValue
+    private UUID id;
 
     @Column(name = "name")
     @NotNull

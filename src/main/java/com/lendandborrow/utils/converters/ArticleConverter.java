@@ -11,7 +11,6 @@ public class ArticleConverter {
     public static ArticleDTO convertArticleToArticleDTO(Article article) {
         return ArticleDTO.builder()
                 .articleStatus(article.getArticleStatus())
-                .id(article.getId())
                 .description(article.getDescription())
                 .userId(article.getOwner().getId())
                 .title(article.getTitle())

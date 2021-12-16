@@ -6,6 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import java.util.UUID;
+
 import static com.lendandborrow.model.enums.EnumArticleStatus.HIDDEN;
 
 @Entity
@@ -16,12 +18,12 @@ import static com.lendandborrow.model.enums.EnumArticleStatus.HIDDEN;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class Article {
-//TODO change id to UUID
-//TODO change reference to user to a single id and not a user reference ?
+//TODO Check why Notnoll constraint for status is not working
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id ;
+    @NotNull
+    @GeneratedValue
+    private UUID id = UUID.randomUUID();
 
     @Column(name = "title")
     @NotNull

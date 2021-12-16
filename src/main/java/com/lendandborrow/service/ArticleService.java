@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -31,12 +32,7 @@ public class ArticleService {
         return article;
     }
 
-
-    public void deleteById(Long articleId) {
-
-        //TODO: return object?
-
-        this.articleRepository.deleteById(articleId);
-
+    //TODO : implement method
+    public void deleteById(UUID articleId) {
     }
 }
