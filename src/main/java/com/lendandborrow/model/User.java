@@ -19,14 +19,10 @@ import java.util.UUID;
 public class User {
 //TODO: Add reference to articles ?
 
-//    @Id
-//    @Column(updatable = false, nullable = false, columnDefinition = "uuid DEFAULT uuid_generate_v4()")
-//    @GeneratedValue(generator = "UUID")
-//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Id
     @NotNull
     @GeneratedValue
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @Column(name = "name")
     @NotNull
