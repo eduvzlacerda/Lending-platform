@@ -1,12 +1,9 @@
 package com.lendandborrow.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lendandborrow.model.Role;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.UserDTO;
-import com.lendandborrow.repositories.RoleRepository;
 import com.lendandborrow.repositories.UserRepository;
-import com.lendandborrow.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,15 +14,15 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collections;
-
+import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts = "classpath:/integration.sql")
 public class UserControllerTest {
 
     @Autowired
@@ -37,22 +34,13 @@ public class UserControllerTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
     @Test
     void addUser() throws Exception {
-
-        Role adminRole = roleRepository.findById(1);
 
         UserDTO user = UserDTO.builder()
                 .name("Test")
                 .email("test@mail.com")
                 .password("My Password")
-                .roles(Collections.singleton(adminRole))
                 .build();
 
         String userAsString = objectMapper.writeValueAsString(user);
@@ -68,6 +56,18 @@ public class UserControllerTest {
 
         Assertions.assertEquals("test@mail.com", userFound.getEmail());
 
+    }
+
+    @Test
+    @Sql(scripts = "classpath:/integration.sql")
+    void getUsers() throws Exception {
+
+        mockMvc.perform(
+                        get("/users")
+                                .contentType("application/json")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
     }
 
 
