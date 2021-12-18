@@ -17,8 +17,8 @@ INSERT INTO users_roles (user_id, role_id) VALUES ('85855a34-f6d5-4419-829c-0b4c
 INSERT INTO users_roles (user_id, role_id) VALUES ('885044de-d105-4621-99ba-d0966d0b2c50', 3)
 
 -- Articles
-INSERT INTO articles (id,description, title, article_status, owner_id) VALUES ('933606a4-506b-4749-ac53-3f07a958a8a7','Article1', 'Content of article 1', 'AVAILABLE', '729aca4f-6d3a-474d-8b90-6eb73b02f003')
-INSERT INTO articles (id,description, title, article_status, owner_id) VALUES ('729aca4f-6d3a-474d-8b90-6eb73b02f003', 'Article2', 'Content of article 2', 'AVAILABLE', '85855a34-f6d5-4419-829c-0b4c231dbc76')
-INSERT INTO articles (id,description, title, article_status, owner_id) VALUES ('85855a34-f6d5-4419-829c-0b4c231dbc76','Article3', 'Content of article 3', 'AVAILABLE', '885044de-d105-4621-99ba-d0966d0b2c50')
-INSERT INTO articles (id,description, title, article_status, owner_id) VALUES ('885044de-d105-4621-99ba-d0966d0b2c50', 'Article4','Content of article 4', 'HIDDEN', '729aca4f-6d3a-474d-8b90-6eb73b02f003')
+INSERT INTO articles (id, title, description, article_status, owner_id) VALUES ('933606a4-506b-4749-ac53-3f07a958a8a7','Article1', 'Content of article 1', 'AVAILABLE', '729aca4f-6d3a-474d-8b90-6eb73b02f003')
+INSERT INTO articles (id, title, description, article_status, owner_id) VALUES ('729aca4f-6d3a-474d-8b90-6eb73b02f003', 'Article2', 'Content of article 2', 'AVAILABLE', '85855a34-f6d5-4419-829c-0b4c231dbc76')
+INSERT INTO articles (id, title, description, article_status, owner_id) VALUES ('85855a34-f6d5-4419-829c-0b4c231dbc76','Article3', 'Content of article 3', 'AVAILABLE', '885044de-d105-4621-99ba-d0966d0b2c50')
+INSERT INTO articles (id, title, description, article_status, owner_id) VALUES ('885044de-d105-4621-99ba-d0966d0b2c50', 'Article4','Content of article 4', 'HIDDEN', '729aca4f-6d3a-474d-8b90-6eb73b02f003')
 
