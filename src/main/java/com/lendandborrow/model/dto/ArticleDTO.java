@@ -16,6 +16,9 @@ import java.util.UUID;
 public class ArticleDTO {
 
     @NotNull
+    private UUID id;
+
+    @NotNull
     private UUID userId;
 
     @NotNull

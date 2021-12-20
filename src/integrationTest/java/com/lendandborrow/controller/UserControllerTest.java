@@ -1,6 +1,7 @@
 package com.lendandborrow.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lendandborrow.CommonIntegrationTest;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.UserDTO;
 import com.lendandborrow.repositories.UserRepository;
@@ -23,10 +24,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-public class UserControllerTest {
+
+public class UserControllerTest extends CommonIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,14 +35,6 @@ public class UserControllerTest {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @AfterEach
-    void afterEach() {
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "articles", "users");
-    }
 
     @Test
     void addUser() throws Exception {

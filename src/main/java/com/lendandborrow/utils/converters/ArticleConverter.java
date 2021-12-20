@@ -10,6 +10,7 @@ public class ArticleConverter {
 
     public static ArticleDTO convertArticleToArticleDTO(Article article) {
         return ArticleDTO.builder()
+                .id(article.getId())
                 .articleStatus(article.getArticleStatus())
                 .description(article.getDescription())
                 .userId(article.getOwner().getId())
@@ -18,6 +19,7 @@ public class ArticleConverter {
     }
     public static Article convertArticleDTOToArticle(ArticleDTO articleDTO, User owner) {
         return Article.builder()
+                .id(articleDTO.getId())
                 .articleStatus(articleDTO.getArticleStatus())
                 .description(articleDTO.getDescription())
                 .owner(owner)

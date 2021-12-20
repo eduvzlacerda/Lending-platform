@@ -11,11 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@AutoConfigureMockMvc
+
 @Sql(scripts = "classpath:/integration.sql")
-public class ApplicationStartupTest {
+public class ApplicationStartupTest extends CommonIntegrationTest {
 
     @Autowired
     private UserRepository userRepository;
