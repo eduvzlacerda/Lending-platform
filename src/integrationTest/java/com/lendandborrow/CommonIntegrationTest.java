@@ -19,7 +19,7 @@ public class CommonIntegrationTest {
 
     @AfterEach
     void afterEach() {
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "articles", "users");
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "lending_processes", "articles", "users");
     }
 
 

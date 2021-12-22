@@ -32,6 +32,10 @@ public class ArticleService {
         return article;
     }
 
+    public Article getArticle(UUID articleID) throws RuntimeException {
+        return articleRepository.findById(articleID).orElseThrow(() -> new RuntimeException("article with id '" + articleID + "' not found"));
+    }
+
     //TODO : implement method
     public void deleteById(UUID articleId) {
     }
