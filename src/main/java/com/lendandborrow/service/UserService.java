@@ -63,7 +63,7 @@ public class UserService {
 
 
     public User getUser(UUID userId) throws RuntimeException {
-        return userRepository.findById(userId).orElseThrow(()-> new RuntimeException("userId nt found"));
+        return userRepository.findById(userId).orElseThrow(()-> new RuntimeException("userId not found"));
     }
 
 }
