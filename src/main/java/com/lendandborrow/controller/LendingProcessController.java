@@ -4,6 +4,7 @@ import com.lendandborrow.model.Article;
 import com.lendandborrow.model.LendingProcess;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.LendingProcessDTO;
+import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.service.ArticleService;
 import com.lendandborrow.service.LendingProcessService;
 import com.lendandborrow.service.UserService;
@@ -33,6 +34,12 @@ public class LendingProcessController {
     @GetMapping
     public ResponseEntity<List<LendingProcessDTO>> getLendingProcesses() {
         return ok(lendingProcessService.findAllLendingProcesses());
+    }
+
+    @PutMapping("acceptRequest/{id}")
+    public ResponseEntity<LendingProcessDTO> acceptLendingRequest(@PathVariable UUID id){
+       return ok(lendingProcessService.acceptLendingProcess(id)) ;
+
     }
 
     @GetMapping("/openRequestsLender")

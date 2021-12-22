@@ -7,9 +7,12 @@ import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.repositories.LendingProcessRepository;
 import com.lendandborrow.utils.converters.LendingProcessConverter;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,6 +20,17 @@ import java.util.stream.Collectors;
 public class LendingProcessService {
 
     private final LendingProcessRepository lendingProcessRepository;
+
+
+    public LendingProcessDTO acceptLendingProcess(UUID id){
+        LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new EntityNotFoundException());
+        if(req.getLendingProcessState() != EnumLendingProcessState.PENDING ){
+            throw new RuntimeException("ProcessState must be pending");
+        }
+        req.setLendingProcessState(EnumLendingProcessState.ACTIVE);
+        return LendingProcessConverter.convertToDTO(lendingProcessRepository.save(req));
+
+    }
 
     public List<LendingProcessDTO> findAllLendingProcesses() {
 
@@ -37,6 +51,8 @@ public class LendingProcessService {
                 .collect(Collectors.toList());
 
     }
+
+
 
 
     public LendingProcess addLendingProcess(LendingProcess lendingProcess) {
