@@ -1,5 +1,6 @@
 package com.lendandborrow.ExcepetionHandling;
 
+import com.lendandborrow.ExcepetionHandling.exceptions.ArticleServiceException;
 import com.lendandborrow.ExcepetionHandling.exceptions.LendingProcessServiceException;
 import com.lendandborrow.ExcepetionHandling.exceptions.UserServiceException;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +19,10 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(  UserServiceException.class)
     public ResponseEntity<Object> handleUserServiceException(  UserServiceException ex, WebRequest req){
+        return new ResponseEntity<>(ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @org.springframework.web.bind.annotation.ExceptionHandler(  ArticleServiceException.class)
+    public ResponseEntity<Object> handleUserServiceException(  ArticleServiceException ex, WebRequest req){
         return new ResponseEntity<>(ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

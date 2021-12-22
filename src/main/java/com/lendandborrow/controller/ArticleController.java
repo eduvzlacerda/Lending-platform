@@ -6,7 +6,6 @@ import com.lendandborrow.model.dto.ArticleDTO;
 import com.lendandborrow.service.ArticleService;
 import com.lendandborrow.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,10 +37,6 @@ public class ArticleController {
     public ResponseEntity<ArticleDTO> addArticle(@RequestBody ArticleDTO articleDTO) {
 
         User user = userService.getUser(articleDTO.getUserId());
-
-        if(user == null){
-            return new ResponseEntity<>(articleDTO, HttpStatus.NOT_FOUND);
-        }
 
         Article article = convertArticleDTOToArticle(articleDTO,user);
 
