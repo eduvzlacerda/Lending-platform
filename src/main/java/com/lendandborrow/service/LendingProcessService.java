@@ -22,6 +22,17 @@ public class LendingProcessService {
     private final LendingProcessRepository lendingProcessRepository;
 
 
+    public LendingProcessDTO rejectLendingProcess(UUID id){
+        LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new EntityNotFoundException());
+        if(req.getLendingProcessState() != EnumLendingProcessState.PENDING ){
+            throw new RuntimeException("ProcessState must be pending");
+        }
+        req.setLendingProcessState(EnumLendingProcessState.REJECTED);
+        return LendingProcessConverter.convertToDTO(lendingProcessRepository.save(req));
+
+    }
+
+
     public LendingProcessDTO acceptLendingProcess(UUID id){
         LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new EntityNotFoundException());
         if(req.getLendingProcessState() != EnumLendingProcessState.PENDING ){
@@ -54,7 +65,7 @@ public class LendingProcessService {
 
 
 
-
+//TODO add business logic ? maybe not accept a request to an article that is not active
     public LendingProcess addLendingProcess(LendingProcess lendingProcess) {
 
         lendingProcessRepository.save(lendingProcess);

@@ -8,16 +8,16 @@ import com.lendandborrow.model.dto.LendingProcessDTO;
 import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.repositories.LendingProcessRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
 import java.util.Optional;
 import java.util.UUID;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class LendingProcessControllerTest extends CommonIntegrationTest {
@@ -46,10 +46,10 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
         String lendingProcessAsString = objectMapper.writeValueAsString(lendingProcessDTO);
 
         MvcResult mvcResult = mockMvc.perform(
-                        post("/lendingProcesses")
-                                .contentType("application/json")
-                                .content(lendingProcessAsString)
-                )
+                post("/lendingProcesses")
+                        .contentType("application/json")
+                        .content(lendingProcessAsString)
+        )
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -74,5 +74,46 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
                         () -> Assertions.fail("LendingProcess not found"));
 
     }
+
+    @Test
+    @Sql(scripts = "classpath:/integration.sql")
+    void acceptLendingProcess() throws Exception {
+
+        String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a7";
+
+        MvcResult mvcResult = mockMvc.perform(
+                put("/lendingProcesses/acceptRequest/{id}", lendingProcessId)
+        )
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String id = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.id");
+        Optional<LendingProcess> optionalLendingProcess = lendingProcessRepository.findById(UUID.fromString(id));
+        optionalLendingProcess.ifPresentOrElse(
+
+                presentLendingProcess -> Assertions.assertEquals(EnumLendingProcessState.ACTIVE, presentLendingProcess.getLendingProcessState()),
+
+                () -> Assertions.fail("LendingProcess did not change process state"));
+
+
+    }
+    @Test
+    @Sql(scripts = "classpath:/integration.sql")
+    @Disabled
+    void acceptLendingProcessFailed() throws Exception {
+
+        String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a8";
+
+
+        MvcResult mvcResult = mockMvc.perform(
+                put("/lendingProcesses/acceptRequest/{id}", lendingProcessId))
+                .andExpect(status().is5xxServerError())
+                .andReturn();
+
+
+
+
+    }
+
 
 }
