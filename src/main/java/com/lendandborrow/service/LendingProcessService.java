@@ -1,5 +1,6 @@
 package com.lendandborrow.service;
 
+import com.lendandborrow.ExpetionHandeling.exceptions.LendingProcessServiceException;
 import com.lendandborrow.model.LendingProcess;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.LendingProcessDTO;
@@ -7,7 +8,6 @@ import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.repositories.LendingProcessRepository;
 import com.lendandborrow.utils.converters.LendingProcessConverter;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,7 +25,7 @@ public class LendingProcessService {
     public LendingProcessDTO rejectLendingProcess(UUID id){
         LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new EntityNotFoundException());
         if(req.getLendingProcessState() != EnumLendingProcessState.PENDING ){
-            throw new RuntimeException("ProcessState must be pending");
+            throw new LendingProcessServiceException("ProcessState must be pending");
         }
         req.setLendingProcessState(EnumLendingProcessState.REJECTED);
         return LendingProcessConverter.convertToDTO(lendingProcessRepository.save(req));
@@ -34,9 +34,9 @@ public class LendingProcessService {
 
 
     public LendingProcessDTO acceptLendingProcess(UUID id){
-        LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new EntityNotFoundException());
+        LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new LendingProcessServiceException("Entity not found"));
         if(req.getLendingProcessState() != EnumLendingProcessState.PENDING ){
-            throw new RuntimeException("ProcessState must be pending");
+            throw new LendingProcessServiceException("ProcessState must be pending");
         }
         req.setLendingProcessState(EnumLendingProcessState.ACTIVE);
         return LendingProcessConverter.convertToDTO(lendingProcessRepository.save(req));

@@ -8,7 +8,6 @@ import com.lendandborrow.model.dto.LendingProcessDTO;
 import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.repositories.LendingProcessRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
@@ -99,7 +98,6 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
     }
     @Test
     @Sql(scripts = "classpath:/integration.sql")
-    @Disabled
     void acceptLendingProcessFailed() throws Exception {
 
         String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a8";
