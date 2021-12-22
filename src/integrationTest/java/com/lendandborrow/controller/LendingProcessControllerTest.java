@@ -108,8 +108,41 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
                 .andExpect(status().is5xxServerError())
                 .andReturn();
 
+    }
+
+    @Test
+    @Sql(scripts = "classpath:/integration.sql")
+    void rejectLendingProcess() throws Exception {
+
+        String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a7";
+
+        MvcResult mvcResult = mockMvc.perform(
+                put("/lendingProcesses/rejectRequest/{id}", lendingProcessId)
+        )
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String id = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.id");
+        Optional<LendingProcess> optionalLendingProcess = lendingProcessRepository.findById(UUID.fromString(id));
+        optionalLendingProcess.ifPresentOrElse(
+
+                presentLendingProcess -> Assertions.assertEquals(EnumLendingProcessState.REJECTED, presentLendingProcess.getLendingProcessState()),
+
+                () -> Assertions.fail("LendingProcess did not change process state"));
 
 
+    }
+    @Test
+    @Sql(scripts = "classpath:/integration.sql")
+    void rejectLendingProcessFailed() throws Exception {
+
+        String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a8";
+
+
+        MvcResult mvcResult = mockMvc.perform(
+                put("/lendingProcesses/rejectRequest/{id}", lendingProcessId))
+                .andExpect(status().is5xxServerError())
+                .andReturn();
 
     }
 

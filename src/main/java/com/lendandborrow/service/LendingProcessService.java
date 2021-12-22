@@ -1,6 +1,6 @@
 package com.lendandborrow.service;
 
-import com.lendandborrow.ExpetionHandeling.exceptions.LendingProcessServiceException;
+import com.lendandborrow.ExcepetionHandling.exceptions.LendingProcessServiceException;
 import com.lendandborrow.model.LendingProcess;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.LendingProcessDTO;
@@ -10,7 +10,6 @@ import com.lendandborrow.utils.converters.LendingProcessConverter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -23,7 +22,7 @@ public class LendingProcessService {
 
 
     public LendingProcessDTO rejectLendingProcess(UUID id){
-        LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new EntityNotFoundException());
+        LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new LendingProcessServiceException("Entity not found"));
         if(req.getLendingProcessState() != EnumLendingProcessState.PENDING ){
             throw new LendingProcessServiceException("ProcessState must be pending");
         }
@@ -66,6 +65,7 @@ public class LendingProcessService {
 
 
 //TODO add business logic ? maybe not accept a request to an article that is not active
+// TODO check if owner of article is the Borrower !
     public LendingProcess addLendingProcess(LendingProcess lendingProcess) {
 
         lendingProcessRepository.save(lendingProcess);

@@ -1,5 +1,6 @@
 package com.lendandborrow.service;
 
+import com.lendandborrow.ExcepetionHandling.exceptions.UserServiceException;
 import com.lendandborrow.model.Role;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.UserDTO;
@@ -11,7 +12,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
@@ -29,9 +29,9 @@ public class UserService {
     //TODO: method never used
     public void setUserRole(EnumRole enumRole, UUID userId) throws RuntimeException {
 
-        Role role = roleRepository.findByName(enumRole.toString()).orElseThrow(()->new RuntimeException("Role not found"));
+        Role role = roleRepository.findByName(enumRole.toString()).orElseThrow(()->new UserServiceException("Role not found"));
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("userId not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserServiceException("userId not found"));
 
         user.getRoles().add(role);
 
@@ -46,7 +46,7 @@ public class UserService {
 
     public boolean loginUser(String email, String password) {
         if (email != null && password != null) {
-            User user = userRepository.findByEmail(email).orElseThrow(()-> new EntityNotFoundException("Email does not exist"));
+            User user = userRepository.findByEmail(email).orElseThrow(()-> new UserServiceException("Email does not exist"));
             if (user != null) {
                 return passwordEncoder.matches(password, user.getPassword());
             }
@@ -63,7 +63,7 @@ public class UserService {
 
 
     public User getUser(UUID userId) throws RuntimeException {
-        return userRepository.findById(userId).orElseThrow(()-> new RuntimeException("userId not found"));
+        return userRepository.findById(userId).orElseThrow(()-> new UserServiceException("userId not found"));
     }
 
 }

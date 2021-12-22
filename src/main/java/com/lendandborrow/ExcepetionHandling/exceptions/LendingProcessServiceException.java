@@ -1,4 +1,4 @@
-package com.lendandborrow.ExpetionHandeling.exceptions;
+package com.lendandborrow.ExcepetionHandling.exceptions;
 
 public class LendingProcessServiceException extends RuntimeException{
     public LendingProcessServiceException(String message){
