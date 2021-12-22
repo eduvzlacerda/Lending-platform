@@ -64,9 +64,11 @@ public class LendingProcessService {
 
 
 
-//TODO add business logic ? maybe not accept a request to an article that is not active
-// TODO check if owner of article is the Borrower !
     public LendingProcess addLendingProcess(LendingProcess lendingProcess) {
+
+        if(lendingProcess.getLender() != lendingProcess.getArticle().getOwner()){
+            throw new LendingProcessServiceException("Lender must own the Article");
+        }
 
         lendingProcessRepository.save(lendingProcess);
 
