@@ -1,0 +1,25 @@
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css'); /* Add application styles & imports to this file! */
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+}
+
+a { cursor: pointer }
+
+.app-container {
+  min-height: 320px;
+  overflow: hidden;
+}
+
+.btn-delete-user {
+  width: 40px;
+  text-align: center;
+  box-sizing: content-box;
+}
