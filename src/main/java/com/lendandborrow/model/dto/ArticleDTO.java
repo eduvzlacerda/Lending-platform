@@ -15,7 +15,6 @@ import java.util.UUID;
 @Getter
 public class ArticleDTO {
 
-    @NotNull
     private UUID id;
 
     @NotNull
@@ -26,6 +25,7 @@ public class ArticleDTO {
 
     private String description;
 
+    @NotNull
     private EnumArticleStatus articleStatus;
 
 }

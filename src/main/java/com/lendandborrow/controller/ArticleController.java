@@ -27,6 +27,11 @@ public class ArticleController {
 
     private final UserService userService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ArticleDTO> getArticle(@PathVariable Long id) {
+        return ok(articleService.findById(id));
+    }
+
     @GetMapping
     public ResponseEntity<List<ArticleDTO>> getArticles() {
 

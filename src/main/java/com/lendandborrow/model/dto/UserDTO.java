@@ -12,7 +12,6 @@ import java.util.Set;
 @Getter @Setter
 public class UserDTO {
 
-    @NotNull
     private String name;
 
     private String password;
@@ -20,7 +19,6 @@ public class UserDTO {
     @NotNull
     private String email;
 
-    @NotNull
     private Set<Role> roles;
 
 }

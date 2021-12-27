@@ -3,15 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
+import {AuthGuard} from "./_helpers/auth.guard";
+import {ArticleListComponent} from "./article-list/article-list.component";
+import {ArticleDetailComponent} from "./article-detail/article-detail.component";
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'articles', component: ArticleListComponent },
+  { path: 'article/:id', component: ArticleDetailComponent},
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: '', redirectTo: 'articles', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -3,7 +3,6 @@
   <h4 class="card-header">Login</h4>
   <div class="card-body">
     <form
-      *ngIf="!isLoggedIn"
       name="form"
       (ngSubmit)="f.form.valid && onSubmit()"
       #f="ngForm"
@@ -65,10 +64,6 @@
         </div>
       </div>
     </form>
-
-    <div class="alert alert-success" *ngIf="isLoggedIn">
-      Logged in as {{ roles }}.
-    </div>
   </div>
 </div>
 </div>

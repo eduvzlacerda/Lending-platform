@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.lendandborrow.utils.converters.ArticleConverter.convertArticleToArticleDTO;
+
 
 @Service
 @AllArgsConstructor
@@ -24,6 +26,10 @@ public class ArticleService {
                 .stream()
                 .map(ArticleConverter::convertArticleToArticleDTO)
                 .collect(Collectors.toList());
+    }
+
+    public ArticleDTO findById(Long id) {
+        return convertArticleToArticleDTO(articleRepository.findById(id).get());
     }
 
     public Article addArticle(Article article, User user) {
