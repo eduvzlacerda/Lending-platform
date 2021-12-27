@@ -52,6 +52,7 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
+
         String id = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.id");
 
         Optional<LendingProcess> optionalLendingProcess = lendingProcessRepository.findById(UUID.fromString(id));
