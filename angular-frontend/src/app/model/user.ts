@@ -1,5 +1,7 @@
 export class User {
-  id: number;
-  name: string;
-  email: string;
+  id: string | undefined;
+  email:string | undefined;
+  name: string | undefined;
+  password: string | undefined;
+
 }

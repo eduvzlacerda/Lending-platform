@@ -1,12 +1,14 @@
 package com.lendandborrow.controller;
 
+import com.lendandborrow.model.dto.UserDTO;
+import com.lendandborrow.repositories.UserRepository;
 import com.lendandborrow.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.ResponseEntity.noContent;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -16,12 +18,13 @@ public class AuthenticationController {
 
     private final UserService  userService;
 
-    @GetMapping
-    public ResponseEntity<Void> login(String email, String password) {
+    @PostMapping
+    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
 
-        if(userService.loginUser(email, password)){
-            return noContent().build();
+        if(userService.loginUser(userDTO.getEmail(), userDTO.getPassword())){
+            return ok(userService.findByEmail(userDTO.getEmail()));
         }
          return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
+
 }

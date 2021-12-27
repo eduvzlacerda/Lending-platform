@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {UserListComponent} from './user-list/user-list.component';
 
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import {AuthGuard} from "./_helpers/auth.guard";
+import {ArticleListComponent} from "./article-list/article-list.component";
+import {ArticleDetailComponent} from "./article-detail/article-detail.component";
 
 const routes: Routes = [
-  { path: 'users', component: UserListComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'articles', component: ArticleListComponent },
+  { path: 'article/:id', component: ArticleDetailComponent},
+  { path: 'register', component: RegisterComponent },
+  { path: '', redirectTo: 'articles', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import static com.lendandborrow.utils.converters.UserConverter.convertUserToUserDTO;
 
 @Service
 @Transactional
@@ -26,12 +28,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    //TODO: method never used
-    public void setUserRole(EnumRole enumRole, UUID userId) throws RuntimeException {
+    public void setUserRole(EnumRole enumRole, UUID userId) {
 
-        Role role = roleRepository.findByName(enumRole.toString()).orElseThrow(()->new RuntimeException("Role not found"));
+        Role role = roleRepository.findByName(enumRole.toString()).orElseThrow(() -> new RuntimeException("Role not found"));
 
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("userId not found"));
+
+        if(user.getRoles() == null) {
+            user.setRoles(new HashSet<>());
+        }
 
         user.getRoles().add(role);
 
@@ -41,7 +46,9 @@ public class UserService {
     public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         //user.setId(UUID.randomUUID());
-        return userRepository.save(user);
+        User createdUser = userRepository.save(user);
+        setUserRole(EnumRole.USER, createdUser.getId());
+        return user;
     }
 
     public boolean loginUser(String email, String password) {
@@ -61,6 +68,16 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public UserDTO findByEmail(String email) {
+        return convertUserToUserDTO(userRepository.findByEmail(email).orElseThrow(()-> new EntityNotFoundException("Email does not exist")));
+    }
+
+    //TODO: understand the diference between get and find by id
+    // --> getById creates a proxy which may or not exist in the db, where as the findById actually checks in the
+    //db for its existence
+    // get bz id can be convinient if you want to pass the entity instead of the id on a find query.
+    // if you only use a get by id and save it like that if the entity doesnt exist it will throw a PLSQLException
+    //saying it violates the relationship of article and user
 
     public User getUser(UUID userId) throws RuntimeException {
         return userRepository.findById(userId).orElseThrow(()-> new RuntimeException("userId not found"));
