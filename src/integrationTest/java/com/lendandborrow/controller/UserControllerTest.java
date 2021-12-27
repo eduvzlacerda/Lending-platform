@@ -30,6 +30,7 @@ public class UserControllerTest extends CommonIntegrationTest {
     private UserRepository userRepository;
 
     @Test
+    @Sql(scripts = "classpath:/integration.sql")
     void addUser() throws Exception {
 
         UserDTO user = UserDTO.builder()

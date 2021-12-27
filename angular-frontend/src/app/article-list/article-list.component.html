@@ -1,0 +1,23 @@
+<app-navigation></app-navigation>
+
+<div class="card my-5">
+  <div class="card-body">
+    <h4 class="card-header">Articles</h4>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr clickable *ngFor="let article of articles" [routerLink]="['/article/', article.id]">
+        <td>{{ article.title }}</td>
+        <td>{{ article.description }}</td>
+        <td>{{ article.articleStatus }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

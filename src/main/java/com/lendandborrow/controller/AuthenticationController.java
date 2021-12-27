@@ -17,7 +17,6 @@ import static org.springframework.http.ResponseEntity.ok;
 public class AuthenticationController {
 
     private final UserService  userService;
-    private final UserRepository userRepository;
 
     @PostMapping
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {

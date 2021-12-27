@@ -28,7 +28,7 @@ public class ArticleService {
                 .collect(Collectors.toList());
     }
 
-    public ArticleDTO findById(Long id) {
+    public ArticleDTO findById(UUID id) {
         return convertArticleToArticleDTO(articleRepository.findById(id).get());
     }
 

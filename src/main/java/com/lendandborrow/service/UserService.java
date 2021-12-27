@@ -28,9 +28,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void setUserRole(EnumRole enumRole, long userId) {
+    public void setUserRole(EnumRole enumRole, UUID userId) {
 
-        Role role = roleRepository.findByName(enumRole.toString()).orElseThrow(()->new RuntimeException("Role not found"));
+        Role role = roleRepository.findByName(enumRole.toString()).orElseThrow(() -> new RuntimeException("Role not found"));
 
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("userId not found"));
 
@@ -48,7 +48,7 @@ public class UserService {
         //user.setId(UUID.randomUUID());
         User createdUser = userRepository.save(user);
         setUserRole(EnumRole.USER, createdUser.getId());
-        return userRepository.save(user);
+        return user;
     }
 
     public boolean loginUser(String email, String password) {
@@ -69,7 +69,7 @@ public class UserService {
     }
 
     public UserDTO findByEmail(String email) {
-        return convertUserToUserDTO(userRepository.findByEmail(email));
+        return convertUserToUserDTO(userRepository.findByEmail(email).orElseThrow(()-> new EntityNotFoundException("Email does not exist")));
     }
 
     //TODO: understand the diference between get and find by id

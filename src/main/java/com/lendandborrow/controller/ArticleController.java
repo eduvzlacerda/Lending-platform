@@ -28,7 +28,7 @@ public class ArticleController {
     private final UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleDTO> getArticle(@PathVariable Long id) {
+    public ResponseEntity<ArticleDTO> getArticle(@PathVariable UUID id) {
         return ok(articleService.findById(id));
     }
 
