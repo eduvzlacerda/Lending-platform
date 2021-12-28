@@ -1,5 +1,6 @@
 package com.lendandborrow.service;
 
+import com.lendandborrow.ExcepetionHandling.exceptions.ArticleServiceException;
 import com.lendandborrow.model.Article;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.ArticleDTO;
@@ -39,7 +40,7 @@ public class ArticleService {
     }
 
     public Article getArticle(UUID articleID) throws RuntimeException {
-        return articleRepository.findById(articleID).orElseThrow(() -> new RuntimeException("article with id '" + articleID + "' not found"));
+        return articleRepository.findById(articleID).orElseThrow(() -> new ArticleServiceException("article with id '" + articleID + "' not found"));
     }
 
     //TODO : implement method

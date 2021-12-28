@@ -48,7 +48,7 @@ public class UserControllerTest extends CommonIntegrationTest {
                 )
                 .andExpect(status().isOk());
 
-        User userFound = userRepository.findByName("Test");
+        User userFound = userRepository.findByName("Test").orElseThrow();
 
         Assertions.assertEquals("test@mail.com", userFound.getEmail());
 

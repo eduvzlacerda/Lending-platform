@@ -21,7 +21,7 @@ public class ApplicationStartupTest extends CommonIntegrationTest {
     @Test
     void testSqlInit() {
 
-        User userFound = userRepository.findByName("Admin");
+        User userFound = userRepository.findByName("Admin").orElseThrow();
 
         Assertions.assertEquals("admin@mail.com", userFound.getEmail());
 

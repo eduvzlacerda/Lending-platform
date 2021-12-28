@@ -35,6 +35,18 @@ public class LendingProcessController {
         return ok(lendingProcessService.findAllLendingProcesses());
     }
 
+    @PutMapping("rejectRequest/{id}")
+    public ResponseEntity<LendingProcessDTO> rejectLendingRequest(@PathVariable UUID id){
+        return ok(lendingProcessService.rejectLendingProcess(id)) ;
+
+    }
+
+    @PutMapping("acceptRequest/{id}")
+    public ResponseEntity<LendingProcessDTO> acceptLendingRequest(@PathVariable UUID id){
+       return ok(lendingProcessService.acceptLendingProcess(id)) ;
+
+    }
+
     @GetMapping("/openRequestsLender")
     public ResponseEntity<List<LendingProcessDTO>> getOpenRequestsLender(@RequestParam UUID userId) {
 

@@ -4,6 +4,7 @@ public enum EnumLendingProcessState {
 
     PENDING,
     ACTIVE,
-    FINISHED
+    FINISHED,
+    REJECTED
 
 }
