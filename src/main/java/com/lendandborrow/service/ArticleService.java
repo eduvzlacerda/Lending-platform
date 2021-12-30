@@ -6,10 +6,14 @@ import com.lendandborrow.model.dto.ArticleDTO;
 import com.lendandborrow.repositories.ArticleRepository;
 import com.lendandborrow.utils.converters.ArticleConverter;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 
 @Service
@@ -31,6 +35,15 @@ public class ArticleService {
         return article;
     }
 
+    public ResponseEntity<List<ArticleDTO>> searchArticlesbyString(String searchString) {
+        if (searchString == null) {
+            return ok(findAllArticles());
+        }
+        return ok(articleRepository.findBySearch(searchString)
+                .stream()
+                .map(ArticleConverter::convertArticleToArticleDTO)
+                .collect(Collectors.toList()));
+    }
 
     public void deleteById(Long articleId) {
 

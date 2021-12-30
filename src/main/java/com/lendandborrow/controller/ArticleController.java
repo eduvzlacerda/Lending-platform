@@ -27,7 +27,6 @@ public class ArticleController {
 
     private final ArticleService articleService;
     private final UserService userService;
-    private final ArticleRepository articleRepository;
 
     @GetMapping
     public ResponseEntity<List<ArticleDTO>> getArticles() {
@@ -36,13 +35,7 @@ public class ArticleController {
 
     @GetMapping("/search")
     public ResponseEntity<List<ArticleDTO>> searchArticles(@RequestParam(required = false) String searchString) {
-        if (searchString == null) {
-            return getArticles();
-        }
-        return ok(articleRepository.findBySearch(searchString)
-                .stream()
-                .map(ArticleConverter::convertArticleToArticleDTO)
-                .collect(Collectors.toList()));
+        return articleService.searchArticlesbyString(searchString);
     }
 
     @PostMapping
