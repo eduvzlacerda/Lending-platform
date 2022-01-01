@@ -7,6 +7,8 @@ import com.lendandborrow.model.dto.ArticleDTO;
 import com.lendandborrow.repositories.ArticleRepository;
 import com.lendandborrow.utils.converters.ArticleConverter;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +47,20 @@ public class ArticleService {
 
     //TODO : implement method
     public void deleteById(UUID articleId) {
+    }
+
+
+    public List<ArticleDTO> findArticlesOfPage(int page, int limit) {
+
+        if(page < 0 | limit < 1 ){
+            throw new ArticleServiceException("Page and Limit must be > 0");
+        }
+        Pageable desiredPage = PageRequest.of(page, limit);
+        return articleRepository.findAll(desiredPage)
+                .getContent().stream().map(ArticleConverter::convertArticleToArticleDTO)
+                .collect(Collectors.toList());
+
+
+
     }
 }
