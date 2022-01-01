@@ -31,13 +31,13 @@ public class ArticleController {
         return ok(articleService.findById(id));
     }
 
-
+/*
     public ResponseEntity<List<ArticleDTO>> getArticles() {
 
         return ok(articleService.findAllArticles());
 
     }
-
+*/
     @PostMapping
     public ResponseEntity<ArticleDTO> addArticle(@RequestBody ArticleDTO articleDTO) {
 

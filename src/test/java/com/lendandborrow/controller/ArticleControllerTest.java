@@ -59,11 +59,11 @@ public class ArticleControllerTest {
                                 .articleStatus(EnumArticleStatus.AVAILABLE)
                                 .build()));
 
-        given(articleController.getArticles()).willReturn(ok(articleList));
+        given(articleController.getPageOfArticles(0,3)).willReturn(ok(articleList));
 
         mockMvc
                 .perform(
-                        get("/articles")
+                        get("/articles?page=0&limit=3")
                         .contentType("application/json")
                 )
                 .andExpect(status().isOk())
