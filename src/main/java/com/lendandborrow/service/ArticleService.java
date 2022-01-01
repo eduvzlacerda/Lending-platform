@@ -24,15 +24,17 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
+    /*
     public List<ArticleDTO> findAllArticles() {
         return articleRepository.findAll()
                 .stream()
                 .map(ArticleConverter::convertArticleToArticleDTO)
                 .collect(Collectors.toList());
     }
+*/
 
     public ArticleDTO findById(UUID id) {
-        return convertArticleToArticleDTO(articleRepository.findById(id).get());
+        return convertArticleToArticleDTO(articleRepository.findById(id).orElseThrow(()->new ArticleServiceException("article id " + id.toString() + "not found")));
     }
 
     public Article addArticle(Article article, User user) {
@@ -42,7 +44,7 @@ public class ArticleService {
     }
 
     public Article getArticle(UUID articleID) throws RuntimeException {
-        return articleRepository.findById(articleID).orElseThrow(() -> new ArticleServiceException("article with id '" + articleID + "' not found"));
+        return articleRepository.findById(articleID).orElseThrow(() -> new ArticleServiceException("article with id " + articleID + "not found"));
     }
 
     //TODO : implement method

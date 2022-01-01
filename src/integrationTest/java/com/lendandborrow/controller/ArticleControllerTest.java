@@ -43,8 +43,30 @@ public class ArticleControllerTest extends CommonIntegrationTest {
                                 .contentType("application/json")
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$.[0].title").value("Article1")); // TODO: access first entry of array maybe?
+    }
+    @Test
+    @Sql(scripts = "classpath:/integration.sql")
+    void getArticlesWithPagination() throws Exception {
+
+        mockMvc.perform(
+                get("/articles?page=0&limit=1")
+                        .contentType("application/json")
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.[0].title").value("Article1"));
+    }
+    @Test
+    @Sql(scripts = "classpath:/integration.sql")
+    void getArticlesWithPaginationFailed() throws Exception {
+
+        mockMvc.perform(
+                get("/articles?page=0&limit=0")
+                        .contentType("application/json")
+        )
+                .andExpect(status().is5xxServerError());
     }
 
     @Test
