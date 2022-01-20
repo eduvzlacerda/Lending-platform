@@ -1,7 +1,6 @@
 package com.lendandborrow.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lendandborrow.model.Article;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.ArticleDTO;
 import com.lendandborrow.model.enums.EnumArticleStatus;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -68,6 +66,71 @@ public class ArticleControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
+    }
+
+    @Test
+    void searchArticlesEmpty() throws Exception {
+
+        List<ArticleDTO> articleList = new ArrayList<>();
+
+        Stream
+                .of("1", "2", "3")
+                .forEach(nr -> articleList.add(
+                        ArticleDTO.builder()
+                                .title(nr)
+                                .description(nr)
+                                .articleStatus(EnumArticleStatus.AVAILABLE)
+                                .build()));
+
+        Stream
+                .of("1", "2", "3")
+                .forEach(nr -> articleList.add(
+                        ArticleDTO.builder()
+                                .title(nr)
+                                .description(nr)
+                                .articleStatus(EnumArticleStatus.HIDDEN)
+                                .build()));
+
+        given(articleController.searchArticles(null)).willReturn(ok(articleList));
+        mockMvc.perform(
+                        get("/articles/search")
+                                .contentType("application/json")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(6)));
+
+    }
+
+    @Test
+    @Disabled
+    void searchArticles() throws Exception {
+        List<ArticleDTO> articleList = new ArrayList<>();
+
+        Stream
+                .of("1", "2", "3")
+                .forEach(nr -> articleList.add(
+                        ArticleDTO.builder()
+                                .title(nr)
+                                .description(nr)
+                                .articleStatus(EnumArticleStatus.AVAILABLE)
+                                .build()));
+
+        Stream
+                .of("1", "2", "3")
+                .forEach(nr -> articleList.add(
+                        ArticleDTO.builder()
+                                .title(nr)
+                                .description(nr)
+                                .articleStatus(EnumArticleStatus.HIDDEN)
+                                .build()));
+
+        given(articleController.searchArticles("2")).willReturn(ok(articleList));
+        mockMvc.perform(
+                        get("/articles/search")
+                                .param("searchString", "2")
+                                .contentType("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
     }
 
     @Test
