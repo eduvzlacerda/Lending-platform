@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface ArticleRepository extends JpaRepository<Article, Long> {
+public interface ArticleRepository extends JpaRepository<Article, UUID> {
     @Query(
             value = "SELECT a FROM Article a WHERE (lower(a.title) LIKE %:searchString%) AND (a.articleStatus = 'AVAILABLE')"
     )

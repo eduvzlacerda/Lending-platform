@@ -59,9 +59,9 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArticleDTO>> getPageOfArticles(@RequestParam(name = "page",defaultValue = "0") int page,
-                                                              @RequestParam(name = "limit",defaultValue = "2") int limit){
-        return ok(articleService.findArticlesOfPage(page,limit));
+    public ResponseEntity<List<ArticleDTO>> getPageOfArticles(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                              @RequestParam(name = "limit", defaultValue = "2") int limit) {
+        return ok(articleService.findArticlesOfPage(page, limit));
     }
 
     @DeleteMapping("articleId")

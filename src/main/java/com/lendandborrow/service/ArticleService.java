@@ -27,17 +27,16 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
-    /*
     public List<ArticleDTO> findAllArticles() {
         return articleRepository.findAll()
                 .stream()
                 .map(ArticleConverter::convertArticleToArticleDTO)
                 .collect(Collectors.toList());
     }
-*/
+
 
     public ArticleDTO findById(UUID id) {
-        return convertArticleToArticleDTO(articleRepository.findById(id).orElseThrow(()->new ArticleServiceException("article id " + id.toString() + "not found")));
+        return convertArticleToArticleDTO(articleRepository.findById(id).orElseThrow(() -> new ArticleServiceException("article id " + id.toString() + "not found")));
     }
 
     public Article addArticle(Article article, User user) {
@@ -67,14 +66,13 @@ public class ArticleService {
 
     public List<ArticleDTO> findArticlesOfPage(int page, int limit) {
 
-        if(page < 0 | limit < 1 ){
+        if (page < 0 | limit < 1) {
             throw new ArticleServiceException("Page and Limit must be > 0");
         }
         Pageable desiredPage = PageRequest.of(page, limit);
         return articleRepository.findAll(desiredPage)
                 .getContent().stream().map(ArticleConverter::convertArticleToArticleDTO)
                 .collect(Collectors.toList());
-
 
 
     }
