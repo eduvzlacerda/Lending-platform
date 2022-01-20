@@ -56,6 +56,7 @@ public class ArticleController {
         Article article = convertArticleDTOToArticle(articleDTO, user);
 
         return ok(convertArticleToArticleDTO(articleService.addArticle(article, user)));
+    }
 
     @GetMapping
     public ResponseEntity<List<ArticleDTO>> getPageOfArticles(@RequestParam(name = "page",defaultValue = "0") int page,
