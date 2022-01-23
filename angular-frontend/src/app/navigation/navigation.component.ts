@@ -28,7 +28,7 @@ export class NavigationComponent implements OnInit {
   public loggedInUserName(): string {
     // @ts-ignore
     let user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
+    //console.log(user);
     return user.name;
   }
 

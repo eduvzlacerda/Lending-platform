@@ -62,7 +62,7 @@ public class LendingProcessController {
 
     }
 
-    @PostMapping
+    @PostMapping("/addLendingProcess")
     public ResponseEntity<LendingProcessDTO> addLendingProcess(@RequestBody LendingProcessDTO lendingProcessDTO) {
 
         User lender = userService.getUser(lendingProcessDTO.getLenderId());
@@ -72,6 +72,20 @@ public class LendingProcessController {
         LendingProcess lendingProcess = LendingProcessConverter.convertFromDTO(lendingProcessDTO, lender, borrower, article);
 
         return ok(LendingProcessConverter.convertToDTO(lendingProcessService.addLendingProcess(lendingProcess)));
+
+    }
+
+    @PostMapping("/addLendingProcessV2")
+    public ResponseEntity<LendingProcessDTO> addLendingProcessV2(@RequestParam UUID userID, @RequestParam UUID articleId) {
+
+        User lender = userService.getUser(userID);
+        Article article = articleService.getArticle(articleId);
+
+        return ok(
+                LendingProcessConverter.convertToDTO(
+                        lendingProcessService.addLendingProcess(lender, article)
+                )
+        );
 
     }
 
