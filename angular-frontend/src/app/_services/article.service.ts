@@ -12,6 +12,7 @@ const API_URL = 'http://localhost:8080/lab/articles/';
 export class ArticleService {
   constructor(private http: HttpClient) { }
 
+  // TODO: this get method referece to paging! add paging in UI as well!
   findAll(): Observable<Article[]> {
     return this.http.get<Article[]>(API_URL);
   }
