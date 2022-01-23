@@ -21,10 +21,14 @@ public class AuthenticationController {
     @PostMapping
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
 
-        if(userService.loginUser(userDTO.getEmail(), userDTO.getPassword())){
+        if(userService.loginUser(userDTO.getEmail(), userDTO.getPassword())) {
+
             return ok(userService.findByEmail(userDTO.getEmail()));
+
         }
-         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
     }
 
 }
