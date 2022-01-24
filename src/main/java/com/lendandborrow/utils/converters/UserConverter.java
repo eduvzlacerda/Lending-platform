@@ -9,6 +9,7 @@ public class UserConverter {
 
     public static UserDTO convertUserToUserDTO(User user){
         return UserDTO.builder()
+                .id(user.getId())
                 .roles(user.getRoles())
                 .email(user.getEmail())
                 .name(user.getName())
@@ -18,6 +19,7 @@ public class UserConverter {
 
     public static User convertUserDTOToUser(UserDTO userDTO){
         return User.builder()
+                .id(userDTO.getId())
                 .roles(userDTO.getRoles())
                 .email(userDTO.getEmail())
                 .name(userDTO.getName())

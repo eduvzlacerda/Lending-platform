@@ -9,13 +9,17 @@
         <th scope="col">Title</th>
         <th scope="col">Description</th>
         <th scope="col">Status</th>
+        <th scope="col">Request</th>
+        <th scope="col">Details</th>
       </tr>
       </thead>
       <tbody>
-      <tr clickable *ngFor="let article of articles" [routerLink]="['/article/', article.id]">
+      <tr *ngFor="let article of articles" >
         <td>{{ article.title }}</td>
         <td>{{ article.description }}</td>
         <td>{{ article.articleStatus }}</td>
+        <td (click)="borrow(article)" > Borrow now </td>
+        <td [routerLink]="['/article/', article.id]"> Details </td>
       </tr>
       </tbody>
     </table>
