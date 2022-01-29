@@ -10,6 +10,7 @@ public class UserConverter {
     public static UserDTO convertUserToUserDTO(User user){
         return UserDTO.builder()
                 .roles(user.getRoles())
+                .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
                 .password("********")

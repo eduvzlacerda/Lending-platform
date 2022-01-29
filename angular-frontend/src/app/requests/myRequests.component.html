@@ -1,0 +1,24 @@
+<app-navigation></app-navigation>
+
+<div class="card my-5">
+  <div class="card-body">
+
+    <h4 class="card-header">Requests</h4>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Article</th>
+        <th scope="col">Borrower</th>
+        <th scope="col">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr clickable *ngFor="let request of lendingRequests">
+        <td>{{ request.articleName }}</td>
+        <td>{{ request.borrowerName }}</td>
+        <td>{{ request.lendingProcessState}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

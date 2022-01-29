@@ -11,6 +11,10 @@ import { RegisterComponent } from './register/register.component';
 import { ArticleListComponent } from './article-list/article-list.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import {NavigationComponent} from "./navigation/navigation.component";
+import {SafeHtml} from "./_helpers/SafeHtml";
+import {FilterPipe} from "./_helpers/FilterPipe";
+import {RequestsComponent} from "./requests/requests.component";
+import {MyRequestsComponent} from "./requests/myRequests.component";
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import {NavigationComponent} from "./navigation/navigation.component";
     RegisterComponent,
     ArticleListComponent,
     ArticleDetailComponent,
-    NavigationComponent
+    RequestsComponent,
+    MyRequestsComponent,
+    NavigationComponent,
+    SafeHtml,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

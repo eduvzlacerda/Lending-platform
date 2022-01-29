@@ -3,10 +3,8 @@ package com.lendandborrow.controller;
 import com.lendandborrow.model.Article;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.ArticleDTO;
-import com.lendandborrow.repositories.ArticleRepository;
 import com.lendandborrow.service.ArticleService;
 import com.lendandborrow.service.UserService;
-import com.lendandborrow.utils.converters.ArticleConverter;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static com.lendandborrow.utils.converters.ArticleConverter.convertArticleDTOToArticle;
 import static com.lendandborrow.utils.converters.ArticleConverter.convertArticleToArticleDTO;

@@ -11,7 +11,8 @@ import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md'
 })
 export class ArticleListComponent implements OnInit {
 
-  articles: Article[] | undefined;
+  articles!: Article[];
+  searchString!: string;
 
   constructor(private articleService: ArticleService) { }
 

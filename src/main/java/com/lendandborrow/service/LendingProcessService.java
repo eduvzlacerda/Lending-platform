@@ -3,7 +3,7 @@ package com.lendandborrow.service;
 import com.lendandborrow.ExcepetionHandling.exceptions.LendingProcessServiceException;
 import com.lendandborrow.model.LendingProcess;
 import com.lendandborrow.model.User;
-import com.lendandborrow.model.dto.LendingProcessDTO;
+import com.lendandborrow.model.dto.LendingProcessRequestDTO;
 import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.repositories.LendingProcessRepository;
 import com.lendandborrow.utils.converters.LendingProcessConverter;
@@ -21,7 +21,7 @@ public class LendingProcessService {
     private final LendingProcessRepository lendingProcessRepository;
 
 
-    public LendingProcessDTO rejectLendingProcess(UUID id){
+    public LendingProcessRequestDTO rejectLendingProcess(UUID id){
         LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new LendingProcessServiceException("Entity not found"));
         if(req.getLendingProcessState() != EnumLendingProcessState.PENDING ){
             throw new LendingProcessServiceException("ProcessState must be pending");
@@ -32,7 +32,7 @@ public class LendingProcessService {
     }
 
 
-    public LendingProcessDTO acceptLendingProcess(UUID id){
+    public LendingProcessRequestDTO acceptLendingProcess(UUID id){
         LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new LendingProcessServiceException("Entity not found"));
         if(req.getLendingProcessState() != EnumLendingProcessState.PENDING ){
             throw new LendingProcessServiceException("ProcessState must be pending");
@@ -42,7 +42,7 @@ public class LendingProcessService {
 
     }
 
-    public List<LendingProcessDTO> findAllLendingProcesses() {
+    public List<LendingProcessRequestDTO> findAllLendingProcesses() {
 
         return lendingProcessRepository
                 .findAll()
@@ -52,10 +52,20 @@ public class LendingProcessService {
 
     }
 
-    public List<LendingProcessDTO> findOpenRequestsLender(User lender) {
+    public List<LendingProcessRequestDTO> findOpenRequestsLender(User lender) {
 
         return lendingProcessRepository
                 .findLendingProcessesByLenderAndLendingProcessState(lender, EnumLendingProcessState.PENDING)
+                .stream()
+                .map(LendingProcessConverter::convertToDTO)
+                .collect(Collectors.toList());
+
+    }
+
+    public List<LendingProcessRequestDTO> findProcessedRequestsLender(User lender) {
+
+        return lendingProcessRepository
+                .findLendingProcessesByLenderAndLendingProcessStateNot(lender, EnumLendingProcessState.PENDING)
                 .stream()
                 .map(LendingProcessConverter::convertToDTO)
                 .collect(Collectors.toList());
@@ -76,4 +86,13 @@ public class LendingProcessService {
 
     }
 
+    public List<LendingProcessRequestDTO> findRequestsBorrower(User borrower) {
+
+        return lendingProcessRepository
+                .findLendingProcessesByBorrower(borrower)
+                .stream()
+                .map(LendingProcessConverter::convertToDTO)
+                .collect(Collectors.toList());
+
+    }
 }
