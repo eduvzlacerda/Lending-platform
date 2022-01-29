@@ -12,7 +12,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class RequestsComponent implements OnInit {
 
-  openLendingRequests: LendingRequest[] | undefined;
+  openLendingRequests!: LendingRequest[];
   processedLendingRequests: LendingRequest[] | undefined;
   openTabActive: boolean = true;
 
@@ -31,13 +31,11 @@ export class RequestsComponent implements OnInit {
 
   acceptRequest(requestId: string) {
     this.requestService.acceptRequest(requestId);
-    // @ts-ignore
     this.openLendingRequests = this.openLendingRequests.filter(request => request.id != requestId);
   }
 
   declineRequest(requestId: string) {
     this.requestService.declineRequest(requestId);
-    // @ts-ignore
     this.openLendingRequests = this.openLendingRequests.filter(request => request.id != requestId);
   }
 

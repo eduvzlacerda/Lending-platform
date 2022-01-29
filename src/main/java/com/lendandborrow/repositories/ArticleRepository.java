@@ -1,6 +1,7 @@
 package com.lendandborrow.repositories;
 
 import com.lendandborrow.model.Article;
+import com.lendandborrow.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,6 @@ public interface ArticleRepository extends JpaRepository<Article, UUID> {
     )
         // No specified Query needed because Spring JPA supports generating queries using the method name
     List<Article> findBySearch(@Param("searchString") String searchString);
+
+    List<Article> findByOwner(User owner);
 }

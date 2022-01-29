@@ -1,0 +1,33 @@
+<app-navigation></app-navigation>
+
+<form name="form" #f="ngForm" novalidate (ngSubmit)="f.form.valid && onSubmit()" style="width:550px; margin:auto;">
+
+  <h4 class="card-header">Create Article</h4>
+
+  <div class="form-group" style="margin-bottom: 25px; margin-top:15px">
+    <label for="title">Name</label>
+    <input [(ngModel)]="form.title" #title="ngModel" name="title" class="form-control" type="text" required >
+    <div
+      class="alert alert-danger"
+      role="alert"
+      *ngIf="title.errors && f.submitted"
+    >
+      Article name is required!
+    </div>
+  </div>
+
+  <div class="form-group" style="margin-bottom: 25px;">
+    <label for="description">Description</label>
+    <textarea [(ngModel)]="form.description" #description="ngModel" name="description" type="text" id="description" class="form-control md-textarea" rows="4" required></textarea>
+    <div
+      class="alert alert-danger"
+      role="alert"
+      *ngIf="description.errors && f.submitted"
+    >
+      Article description is required!
+  </div>
+  </div>
+
+  <button class="btn btn-primary">Submit article</button>
+
+</form>

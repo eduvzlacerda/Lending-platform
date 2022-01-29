@@ -1,0 +1,45 @@
+<app-navigation></app-navigation>
+
+<div class="card my-5">
+  <div class="card-body">
+    <h4 class="card-header">My articles</h4>
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="glyphicon glyphicon-search"></i>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            name="searchString"
+            placeholder="Type to search..."
+            [(ngModel)]="searchString"
+          />
+        </div>
+      </div>
+    </form>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let article of articles | filter : 'title' : searchString; let i = index">
+        <td>{{ article.title }}</td>
+        <td>{{ article.description }}</td>
+        <td>{{ article.articleStatus }}</td>
+        <td style="width:80px">
+          <button style="width:60px" type="button" class="btn btn-primary" [routerLink]="['/editArticle/', article.id]">Edit</button>
+        </td>
+        <td style="width:100px">
+            <button style="width: 80px" type="button" class="btn btn-danger" (click)="delete(article.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

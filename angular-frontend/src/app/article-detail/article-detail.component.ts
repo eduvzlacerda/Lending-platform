@@ -18,13 +18,7 @@ export class ArticleDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
     this.article = this.articleService.findById(this.id);
-    console.log(this.article);
   }
-
-  //public getArticle(): Observable<Article> {
-    //return this.article;
-  //}
 
 }

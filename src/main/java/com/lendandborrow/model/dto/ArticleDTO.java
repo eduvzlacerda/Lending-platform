@@ -25,7 +25,6 @@ public class ArticleDTO {
 
     private String description;
 
-    @NotNull
     private EnumArticleStatus articleStatus;
 
 }

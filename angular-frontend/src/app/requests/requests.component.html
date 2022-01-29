@@ -24,9 +24,9 @@
       <tr clickable *ngFor="let request of openLendingRequests">
         <td>{{ request.articleName }}</td>
         <td>{{ request.borrowerName }}</td>
-        <td style="width: 170px">
-          <button mat-button (click)="acceptRequest(request.id)" style="margin-right: 20px"> Accept </button>
-          <button mat-button (click)="declineRequest(request.id)"> Reject </button>
+        <td style="width: 190px">
+          <button class="btn btn-success" (click)="acceptRequest(request.id)" style="margin-right: 20px"> Accept </button>
+          <button class="btn btn-danger" (click)="declineRequest(request.id)"> Reject </button>
         </td>
 
       </tr>
