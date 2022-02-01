@@ -99,7 +99,7 @@ public class LendingProcessController {
     }
 
     @PostMapping("/addLendingProcessV2")
-    public ResponseEntity<LendingProcessDTO> addLendingProcessV2(@RequestParam UUID userID, @RequestParam UUID articleId) {
+    public ResponseEntity<LendingProcessRequestDTO> addLendingProcessV2(@RequestParam UUID userID, @RequestParam UUID articleId) {
 
         User lender = userService.getUser(userID);
         Article article = articleService.getArticle(articleId);

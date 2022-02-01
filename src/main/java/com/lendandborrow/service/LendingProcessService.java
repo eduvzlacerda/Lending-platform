@@ -4,7 +4,8 @@ import com.lendandborrow.ExcepetionHandling.exceptions.LendingProcessServiceExce
 import com.lendandborrow.model.Article;
 import com.lendandborrow.model.LendingProcess;
 import com.lendandborrow.model.User;
-import com.lendandborrow.model.dto.LendingProcessDTO;
+import com.lendandborrow.model.dto.LendingProcessRequestDTO;
+import com.lendandborrow.model.enums.EnumArticleStatus;
 import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.repositories.LendingProcessRepository;
 import com.lendandborrow.utils.converters.LendingProcessConverter;
