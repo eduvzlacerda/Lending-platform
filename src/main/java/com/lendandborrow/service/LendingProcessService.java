@@ -3,6 +3,7 @@ package com.lendandborrow.service;
 import com.lendandborrow.ExcepetionHandling.exceptions.LendingProcessServiceException;
 import com.lendandborrow.model.LendingProcess;
 import com.lendandborrow.model.User;
+import com.lendandborrow.model.dto.LendingProcessDTO;
 import com.lendandborrow.model.dto.LendingProcessRequestDTO;
 import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.repositories.LendingProcessRepository;
@@ -41,7 +42,7 @@ public class LendingProcessService {
         return LendingProcessConverter.convertToDTO(lendingProcessRepository.save(req));
 
     }
-    public LendingProcessDTO giveBackArticle(UUID id){
+    public LendingProcessRequestDTO giveBackArticle(UUID id){
         LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new LendingProcessServiceException("Entity not found"));
 
         if(req.getLendingProcessState() != EnumLendingProcessState.ACTIVE){

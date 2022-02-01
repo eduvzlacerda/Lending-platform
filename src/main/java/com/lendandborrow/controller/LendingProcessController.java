@@ -4,6 +4,8 @@ import com.lendandborrow.model.Article;
 import com.lendandborrow.model.LendingProcess;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.LendingProcessDTO;
+
+import com.lendandborrow.model.dto.LendingProcessRequestDTO;
 import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.service.ArticleService;
 import com.lendandborrow.service.LendingProcessService;
@@ -32,24 +34,44 @@ public class LendingProcessController {
     private final ArticleService articleService;
 
     @GetMapping
-    public ResponseEntity<List<LendingProcessDTO>> getLendingProcesses() {
+    public ResponseEntity<List<LendingProcessRequestDTO>> getLendingProcesses() {
         return ok(lendingProcessService.findAllLendingProcesses());
     }
 
-    @PutMapping("rejectRequest/{id}")
-    public ResponseEntity<LendingProcessDTO> rejectLendingRequest(@PathVariable UUID id){
-        return ok(lendingProcessService.rejectLendingProcess(id)) ;
-
+    @PostMapping("/rejectRequest/")
+    public ResponseEntity<LendingProcessRequestDTO> rejectLendingRequest(@RequestParam UUID id){
+        return ok(lendingProcessService.rejectLendingProcess(id));
     }
 
-    @PutMapping("acceptRequest/{id}")
-    public ResponseEntity<LendingProcessDTO> acceptLendingRequest(@PathVariable UUID id){
-       return ok(lendingProcessService.acceptLendingProcess(id)) ;
-
+    @PostMapping("/acceptRequest/")
+    public ResponseEntity<LendingProcessRequestDTO> acceptLendingRequest(@RequestParam UUID id){
+       return ok(lendingProcessService.acceptLendingProcess(id));
     }
 
-    @GetMapping("/openRequestsLender")
-    public ResponseEntity<List<LendingProcessDTO>> getOpenRequestsLender(@RequestParam UUID userId) {
+    @GetMapping("/openRequestsLender/{userId}")
+    public ResponseEntity<List<LendingProcessRequestDTO>> getOpenRequestsLender(@PathVariable UUID userId) {
+        User lender = userService.getUser(userId);
+
+        if(lender == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ok(lendingProcessService.findOpenRequestsLender(lender));
+    }
+
+    @GetMapping("/requestsBorrower/{userId}")
+    public ResponseEntity<List<LendingProcessRequestDTO>> getRequestsBorrower(@PathVariable UUID userId) {
+        User borrower = userService.getUser(userId);
+
+        if(borrower == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ok(lendingProcessService.findRequestsBorrower(borrower));
+    }
+
+    @GetMapping("/processedRequestsLender/{userId}")
+    public ResponseEntity<List<LendingProcessRequestDTO>> getProcessedRequestsLender(@PathVariable UUID userId) {
 
         User lender = userService.getUser(userId);
 
@@ -59,12 +81,12 @@ public class LendingProcessController {
 
         }
 
-        return ok(lendingProcessService.findOpenRequestsLender(lender));
+        return ok(lendingProcessService.findProcessedRequestsLender(lender));
 
     }
 
     @PostMapping
-    public ResponseEntity<LendingProcessDTO> addLendingProcess(@RequestBody LendingProcessDTO lendingProcessDTO) {
+    public ResponseEntity<LendingProcessRequestDTO> addLendingProcess(@RequestBody LendingProcessDTO lendingProcessDTO) {
 
         User lender = userService.getUser(lendingProcessDTO.getLenderId());
         User borrower = userService.getUser(lendingProcessDTO.getBorrowerId());
@@ -77,7 +99,7 @@ public class LendingProcessController {
     }
 
     @PutMapping("giveBackArticle/{lendingProcessId}")
-    public ResponseEntity<LendingProcessDTO> giveBackArticle(@PathVariable UUID lendingProcessId){
+    public ResponseEntity<LendingProcessRequestDTO> giveBackArticle(@PathVariable UUID lendingProcessId){
        return ok(lendingProcessService.giveBackArticle(lendingProcessId));
     }
 
