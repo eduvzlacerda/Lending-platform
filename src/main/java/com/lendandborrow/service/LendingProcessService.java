@@ -41,6 +41,19 @@ public class LendingProcessService {
         return LendingProcessConverter.convertToDTO(lendingProcessRepository.save(req));
 
     }
+    public LendingProcessDTO giveBackArticle(UUID id){
+        LendingProcess req = lendingProcessRepository.findById(id).orElseThrow(()-> new LendingProcessServiceException("Entity not found"));
+
+        if(req.getLendingProcessState() != EnumLendingProcessState.ACTIVE){
+            throw new LendingProcessServiceException("ProcessState must be Active to return article");
+        }
+        req.setLendingProcessState(EnumLendingProcessState.FINISHED);
+
+        return LendingProcessConverter.convertToDTO(lendingProcessRepository.save(req));
+
+    }
+
+
 
     public List<LendingProcessRequestDTO> findAllLendingProcesses() {
 
