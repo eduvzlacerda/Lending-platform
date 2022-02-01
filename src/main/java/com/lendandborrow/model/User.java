@@ -35,7 +35,7 @@ public class User {
     @NotNull
     private String email;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotNull
     @JoinTable(
             name = "users_roles",

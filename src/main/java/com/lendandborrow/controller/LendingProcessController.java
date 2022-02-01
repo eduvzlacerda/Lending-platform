@@ -4,6 +4,7 @@ import com.lendandborrow.model.Article;
 import com.lendandborrow.model.LendingProcess;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.LendingProcessDTO;
+import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.service.ArticleService;
 import com.lendandborrow.service.LendingProcessService;
 import com.lendandborrow.service.UserService;
@@ -73,6 +74,11 @@ public class LendingProcessController {
 
         return ok(LendingProcessConverter.convertToDTO(lendingProcessService.addLendingProcess(lendingProcess)));
 
+    }
+
+    @PutMapping("giveBackArticle/{lendingProcessId}")
+    public ResponseEntity<LendingProcessDTO> giveBackArticle(@PathVariable UUID lendingProcessId){
+       return ok(lendingProcessService.giveBackArticle(lendingProcessId));
     }
 
 
