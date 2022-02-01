@@ -112,6 +112,9 @@ public class LendingProcessController {
 
     }
 
-
+    @PostMapping("/giveBackArticle")
+    public ResponseEntity<LendingProcessRequestDTO> giveBackArticle(@RequestParam UUID lendingProcessId){
+        return ok(lendingProcessService.giveBackArticle(lendingProcessId));
+    }
 
 }

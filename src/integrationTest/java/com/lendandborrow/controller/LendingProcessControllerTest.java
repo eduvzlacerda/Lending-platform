@@ -215,8 +215,8 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
     @Test
     @Sql(scripts = "classpath:/integration.sql")
     void returnArticleByLendingProcessSuccess() throws Exception {
-        String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a8";
 
+        String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a8";
 
         MvcResult mvcResult = mockMvc.perform(
                         post("/lendingProcesses/giveBackArticle/")
@@ -226,12 +226,16 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
 
 
     String id = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.id");
+
     Optional<LendingProcess> optionalLendingProcess = lendingProcessRepository.findById(UUID.fromString(id));
-        optionalLendingProcess.ifPresentOrElse(
 
-    presentLendingProcess ->Assertions.assertEquals(EnumLendingProcessState.FINISHED,presentLendingProcess.getLendingProcessState()),
-
-            ()->Assertions.fail("LendingProcess did not change process state"));
+    optionalLendingProcess
+            .ifPresentOrElse(
+                    presentLendingProcess -> Assertions.assertEquals(
+                            EnumLendingProcessState.FINISHED,
+                            presentLendingProcess.getLendingProcessState()
+                    ),
+                    () -> Assertions.fail("LendingProcess did not change process state"));
 
     }
 
