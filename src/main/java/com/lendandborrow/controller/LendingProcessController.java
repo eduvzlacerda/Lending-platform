@@ -43,8 +43,8 @@ public class LendingProcessController {
         return ok(lendingProcessService.rejectLendingProcess(id));
     }
 
-    @PostMapping("/acceptRequest/")
-    public ResponseEntity<LendingProcessRequestDTO> acceptLendingRequest(@RequestParam UUID id){
+    @PostMapping("/acceptRequest")
+    public ResponseEntity<LendingProcessRequestDTO> acceptLendingRequest(@RequestParam("id") UUID id){
        return ok(lendingProcessService.acceptLendingProcess(id));
     }
 
