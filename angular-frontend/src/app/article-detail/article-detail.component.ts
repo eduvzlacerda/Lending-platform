@@ -22,7 +22,6 @@ export class ArticleDetailComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id');
 
-    console.log(this.id);
 
     this.articleService.findById(this.id)
       .subscribe(val => {
@@ -30,12 +29,7 @@ export class ArticleDetailComponent implements OnInit {
         this.article = val;
       });
 
-    //console.log(this.article);
 
   }
-
-  // public getArticle(): Observable<Article> {
-  //   return this.article;
-  // }
 
 }

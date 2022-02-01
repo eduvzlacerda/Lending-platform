@@ -4,6 +4,7 @@ import com.lendandborrow.ExcepetionHandling.exceptions.ArticleServiceException;
 import com.lendandborrow.model.Article;
 import com.lendandborrow.model.User;
 import com.lendandborrow.model.dto.ArticleDTO;
+import com.lendandborrow.model.enums.EnumArticleStatus;
 import com.lendandborrow.repositories.ArticleRepository;
 import com.lendandborrow.utils.converters.ArticleConverter;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.UUID;
@@ -41,6 +41,7 @@ public class ArticleService {
 
     public Article addArticle(Article article, User user) {
         article.setOwner(user);
+        article.setArticleStatus(EnumArticleStatus.AVAILABLE);
         articleRepository.save(article);
         return article;
     }
@@ -61,6 +62,7 @@ public class ArticleService {
 
     //TODO : implement method
     public void deleteById(UUID articleId) {
+        articleRepository.deleteById(articleId);
     }
 
 
@@ -75,5 +77,18 @@ public class ArticleService {
                 .collect(Collectors.toList());
 
 
+    }
+
+    public List<ArticleDTO> findArticlesOfUser(User owner) {
+        return articleRepository.findByOwner(owner)
+                .stream()
+                .map(ArticleConverter::convertArticleToArticleDTO)
+                .collect(Collectors.toList());
+    }
+
+    public void updateArticle(Article updatedArticle) {
+        Article oldArticle = articleRepository.findById(updatedArticle.getId()).get();
+        updatedArticle.setArticleStatus(oldArticle.getArticleStatus());
+        articleRepository.save(updatedArticle);
     }
 }

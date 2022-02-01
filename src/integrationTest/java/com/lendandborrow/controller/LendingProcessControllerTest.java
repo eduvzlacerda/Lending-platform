@@ -45,10 +45,10 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
         String lendingProcessAsString = objectMapper.writeValueAsString(lendingProcessDTO);
 
         MvcResult mvcResult = mockMvc.perform(
-                post("/lendingProcesses")
-                        .contentType("application/json")
-                        .content(lendingProcessAsString)
-        )
+                        post("/lendingProcesses")
+                                .contentType("application/json")
+                                .content(lendingProcessAsString)
+                )
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -92,10 +92,10 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
         String lendingProcessAsString = objectMapper.writeValueAsString(lendingProcessDTO);
 
         MvcResult mvcResult = mockMvc.perform(
-                post("/lendingProcesses")
-                        .contentType("application/json")
-                        .content(lendingProcessAsString)
-        )
+                        post("/lendingProcesses")
+                                .contentType("application/json")
+                                .content(lendingProcessAsString)
+                )
                 .andExpect(status().is5xxServerError())
                 .andReturn();
     }
@@ -107,8 +107,9 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
         String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a7";
 
         MvcResult mvcResult = mockMvc.perform(
-                put("/lendingProcesses/acceptRequest/{id}", lendingProcessId)
-        )
+                        post("/lendingProcesses/acceptRequest/")
+                                .param("id",lendingProcessId)
+                )
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -122,6 +123,7 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
 
 
     }
+
     @Test
     @Sql(scripts = "classpath:/integration.sql")
     void acceptLendingProcessFailed() throws Exception {
@@ -130,11 +132,15 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
 
 
         MvcResult mvcResult = mockMvc.perform(
-                put("/lendingProcesses/acceptRequest/{id}", lendingProcessId))
+                        post("/lendingProcesses/acceptRequest")
+                                .param("id",lendingProcessId)
+                )
+
                 .andExpect(status().is5xxServerError())
                 .andReturn();
 
     }
+
     @Test
     @Sql(scripts = "classpath:/integration.sql")
     void acceptLendingProcessFailed2() throws Exception {
@@ -143,11 +149,13 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
 
 
         MvcResult mvcResult = mockMvc.perform(
-                put("/lendingProcesses/acceptRequest/{id}", lendingProcessId))
+                        post("/lendingProcesses/acceptRequest/")
+                                .param("id",lendingProcessId))
                 .andExpect(status().is5xxServerError())
                 .andReturn();
 
     }
+
     @Test
     @Sql(scripts = "classpath:/integration.sql")
     void rejectLendingProcess() throws Exception {
@@ -155,8 +163,9 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
         String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a7";
 
         MvcResult mvcResult = mockMvc.perform(
-                put("/lendingProcesses/rejectRequest/{id}", lendingProcessId)
-        )
+                post("/lendingProcesses/rejectRequest/")
+                        .param("id",lendingProcessId)
+                )
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -170,6 +179,7 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
 
 
     }
+
     @Test
     @Sql(scripts = "classpath:/integration.sql")
     void rejectLendingProcessFailed() throws Exception {
@@ -178,11 +188,14 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
 
 
         MvcResult mvcResult = mockMvc.perform(
-                put("/lendingProcesses/rejectRequest/{id}", lendingProcessId))
+                        post("/lendingProcesses/acceptRequest/")
+                                .param("id",lendingProcessId)
+                )
                 .andExpect(status().is5xxServerError())
                 .andReturn();
 
     }
+
     @Test
     @Sql(scripts = "classpath:/integration.sql")
     void rejectLendingProcessFailed2() throws Exception {
@@ -191,11 +204,49 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
 
 
         MvcResult mvcResult = mockMvc.perform(
-                put("/lendingProcesses/rejectRequest/{id}", lendingProcessId))
+                        post("/lendingProcesses/acceptRequest/")
+                                .param("id",lendingProcessId)
+                )
                 .andExpect(status().is5xxServerError())
                 .andReturn();
 
     }
 
+    @Test
+    @Sql(scripts = "classpath:/integration.sql")
+    void returnArticleByLendingProcessSuccess() throws Exception {
+        String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a8";
 
+
+        MvcResult mvcResult = mockMvc.perform(
+                        post("/lendingProcesses/giveBackArticle/")
+                                .param("lendingProcessId", lendingProcessId))
+                .andExpect(status().isOk())
+                .andReturn();
+
+
+    String id = JsonPath.read(mvcResult.getResponse().getContentAsString(), "$.id");
+    Optional<LendingProcess> optionalLendingProcess = lendingProcessRepository.findById(UUID.fromString(id));
+        optionalLendingProcess.ifPresentOrElse(
+
+    presentLendingProcess ->Assertions.assertEquals(EnumLendingProcessState.FINISHED,presentLendingProcess.getLendingProcessState()),
+
+            ()->Assertions.fail("LendingProcess did not change process state"));
+
+    }
+
+    @Test
+    @Sql(scripts = "classpath:/integration.sql")
+    void returnArticleByLendingProcessFailed() throws Exception {
+        String lendingProcessId = "933606a4-506b-4749-ac53-3f07a958a8a7";
+
+
+        MvcResult mvcResult = mockMvc.perform(
+                        post("/lendingProcesses/giveBackArticle/")
+                                .param("lendingProcessId", lendingProcessId))
+                .andExpect(status().is5xxServerError())
+                .andReturn();
+
+
+    }
 }

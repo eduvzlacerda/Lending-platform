@@ -12,7 +12,8 @@ import {User} from "../model/user";
 })
 export class ArticleListComponent implements OnInit {
 
-  articles: Article[] | undefined;
+  articles!: Article[];
+  searchString!: string;
 
   constructor(
       private articleService: ArticleService,

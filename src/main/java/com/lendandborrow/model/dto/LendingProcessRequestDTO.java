@@ -1,6 +1,5 @@
 package com.lendandborrow.model.dto;
 
-import com.lendandborrow.model.enums.EnumArticleStatus;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,18 +12,18 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class ArticleDTO {
-
-    private UUID id;
+public class LendingProcessRequestDTO {
 
     @NotNull
-    private UUID userId;
+    private UUID id = UUID.randomUUID();
 
     @NotNull
-    private String title;
+    private String borrowerName;
 
-    private String description;
+    @NotNull
+    private String articleName;
 
-    private EnumArticleStatus articleStatus;
+    @NotNull
+    private String lendingProcessState;
 
 }

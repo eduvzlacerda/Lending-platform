@@ -14,4 +14,7 @@ public interface LendingProcessRepository extends JpaRepository<LendingProcess, 
 
     List<LendingProcess> findLendingProcessesByLenderAndLendingProcessState(User lender, EnumLendingProcessState lendingProcessState);
 
+    List<LendingProcess> findLendingProcessesByLenderAndLendingProcessStateNot(User lender, EnumLendingProcessState lendingProcessState);
+
+    List<LendingProcess> findLendingProcessesByBorrower(User borrower);
 }

@@ -26,3 +26,7 @@ INSERT INTO articles (id, title, description, article_status, owner_id) VALUES (
 
 -- LendingProcess
 INSERT INTO lending_processes(id, lending_process_state, article_id, borrower_id, lender_id) VALUES ('933606a4-506b-4749-ac53-3f07a958a8a7', 'PENDING', '933606a4-506b-4749-ac53-3f07a958a8a7', '729aca4f-6d3a-474d-8b90-6eb73b02f003', '85855a34-f6d5-4419-829c-0b4c231dbc76');
+INSERT INTO lending_processes(id, lending_process_state, article_id, borrower_id, lender_id) VALUES ('634506a4-506b-4749-ac53-3f07a958a8a7', 'ACTIVE', '933606a4-506b-4749-ac53-3f07a958a8a7', '729aca4f-6d3a-474d-8b90-6eb73b02f003', '85855a34-f6d5-4419-829c-0b4c231dbc76');
+INSERT INTO lending_processes(id, lending_process_state, article_id, borrower_id, lender_id) VALUES ('534206a4-506b-4749-ac53-3f07a958a8a7', 'REJECTED', '933606a4-506b-4749-ac53-3f07a958a8a7', '729aca4f-6d3a-474d-8b90-6eb73b02f003', '85855a34-f6d5-4419-829c-0b4c231dbc76');
+INSERT INTO lending_processes(id, lending_process_state, article_id, borrower_id, lender_id) VALUES ('435543a4-506b-4749-ac53-3f07a958a8a7', 'PENDING', '933606a4-506b-4749-ac53-3f07a958a8a7', '85855a34-f6d5-4419-829c-0b4c231dbc76', '729aca4f-6d3a-474d-8b90-6eb73b02f003');
+INSERT INTO lending_processes(id, lending_process_state, article_id, borrower_id, lender_id) VALUES ('943446a4-506b-4749-ac53-3f07a958a8a7', 'PENDING', '933606a4-506b-4749-ac53-3f07a958a8a7', '729aca4f-6d3a-474d-8b90-6eb73b02f003', '85855a34-f6d5-4419-829c-0b4c231dbc76');

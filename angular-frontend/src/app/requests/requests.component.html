@@ -1,0 +1,53 @@
+<app-navigation></app-navigation>
+
+<div class="card my-5">
+  <div class="card-body">
+
+    <ul class="nav nav-tabs">
+      <li class="nav-item clickable">
+        <a type="button" [ngClass]="openTabActive == true ? 'nav-link active' : 'nav-link'" (click)="showOpen()">Open</a>
+      </li>
+      <li class="nav-item">
+        <a type="button" [ngClass]="openTabActive == false ? 'nav-link active' : 'nav-link'" (click)="showProcessed()">Processed</a>
+      </li>
+    </ul>
+
+    <h4 class="card-header">Requests</h4>
+    <table *ngIf="openTabActive" class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Article</th>
+        <th scope="col">Borrower</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr clickable *ngFor="let request of openLendingRequests">
+        <td>{{ request.articleName }}</td>
+        <td>{{ request.borrowerName }}</td>
+        <td style="width: 190px">
+          <button class="btn btn-success" (click)="acceptRequest(request.id)" style="margin-right: 20px"> Accept </button>
+          <button class="btn btn-danger" (click)="declineRequest(request.id)"> Reject </button>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+    <table *ngIf="!openTabActive" class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Article</th>
+        <th scope="col">Borrower</th>
+        <th scope="col">State</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr clickable *ngFor="let request of processedLendingRequests">
+        <td>{{ request.articleName }}</td>
+        <td>{{ request.borrowerName }}</td>
+        <td>{{ request.lendingProcessState }}</td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

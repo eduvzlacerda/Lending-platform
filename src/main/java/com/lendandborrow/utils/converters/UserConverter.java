@@ -11,6 +11,7 @@ public class UserConverter {
         return UserDTO.builder()
                 .id(user.getId())
                 .roles(user.getRoles())
+                .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
                 .password("********")

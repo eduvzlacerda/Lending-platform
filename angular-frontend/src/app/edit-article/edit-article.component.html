@@ -1,0 +1,20 @@
+<app-navigation></app-navigation>
+
+<form name="form" #f="ngForm" novalidate (ngSubmit)="f.form.valid && onSubmit()" style="width:550px; margin:auto;">
+
+  <h4 class="card-header">Update article</h4>
+
+  <div class="form-group" style="margin-bottom: 25px; margin-top:15px">
+    <label for="titleForm">Name</label>
+    <input [(ngModel)]="form.titleForm" value="{{title}}" name="titleForm" class="form-control" type="text" >
+
+  </div>
+
+  <div class="form-group" style="margin-bottom: 25px;">
+    <label for="descriptionForm">Description</label>
+    <textarea [(ngModel)]="form.descriptionForm" value="{{description}}" name="descriptionForm" type="text" class="form-control md-textarea" rows="4"></textarea>
+  </div>
+
+  <button class="btn btn-primary">Update article</button>
+
+</form>

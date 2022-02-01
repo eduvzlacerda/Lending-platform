@@ -2,7 +2,7 @@
 
 <div class="card my-5">
   <div class="card-body">
-    <h4 class="card-header">Articles</h4>
+    <h4 class="card-header">My articles</h4>
     <form>
       <div class="form-group">
         <div class="input-group">
@@ -20,36 +20,26 @@
       </div>
     </form>
     <table class="table table-bordered table-striped">
-
       <thead class="thead-dark">
       <tr>
         <th scope="col">Title</th>
         <th scope="col">Description</th>
         <th scope="col">Status</th>
-        <th scope="col">Borrow</th>
-        <th scope="col">Details</th>
       </tr>
       </thead>
-
       <tbody>
-      <tr clickable *ngFor="let article of articles" [routerLink]="['/article/', article.id]">
-      <tr *ngFor="let article of articles" >
-
+      <tr *ngFor="let article of articles | filter : 'title' : searchString; let i = index">
         <td>{{ article.title }}</td>
         <td>{{ article.description }}</td>
         <td>{{ article.articleStatus }}</td>
-
-        <td (click)="borrow(article)" >
-          <button mat-button> Borrow </button>
+        <td style="width:80px">
+          <button style="width:60px" type="button" class="btn btn-primary" [routerLink]="['/editArticle/', article.id]">Edit</button>
         </td>
-
-        <td [routerLink]="['/article/', article.id]">
-          <button mat-button> Details </button>
+        <td style="width:100px">
+            <button style="width: 80px" type="button" class="btn btn-danger" (click)="delete(article.id)">Delete</button>
         </td>
-
       </tr>
       </tbody>
-
     </table>
   </div>
 </div>
