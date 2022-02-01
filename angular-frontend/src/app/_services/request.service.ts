@@ -48,4 +48,10 @@ export class RequestService {
       return data;
     });
   }
+
+  // @ts-ignore
+  returnArticle(requestId: string): Observable<LendingRequest> {
+    let params = new HttpParams().set("lendingProcessId", requestId);
+    return this.http.post<LendingRequest>(API_URL + "giveBackArticle/", {}, {params});
+  }
 }

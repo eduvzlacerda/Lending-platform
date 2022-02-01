@@ -17,6 +17,9 @@
         <td>{{ request.articleName }}</td>
         <td>{{ request.borrowerName }}</td>
         <td>{{ request.lendingProcessState}}</td>
+        <td *ngIf="request.lendingProcessState == 'ACTIVE'" style="width: 120px">
+          <button class="btn btn-success" (click)="returnArticle(request.id)"> Give back </button>
+        </td>
       </tr>
       </tbody>
     </table>

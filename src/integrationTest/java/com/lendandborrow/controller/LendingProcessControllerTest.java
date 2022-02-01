@@ -219,7 +219,8 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
 
 
         MvcResult mvcResult = mockMvc.perform(
-                        put("/lendingProcesses/giveBackArticle/{lendingProcessId}", lendingProcessId))
+                        post("/lendingProcesses/giveBackArticle/")
+                                .param("lendingProcessId", lendingProcessId))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -241,7 +242,8 @@ public class LendingProcessControllerTest extends CommonIntegrationTest {
 
 
         MvcResult mvcResult = mockMvc.perform(
-                        put("/lendingProcesses/giveBackArticle/{lendingProcessId}", lendingProcessId))
+                        post("/lendingProcesses/giveBackArticle/")
+                                .param("lendingProcessId", lendingProcessId))
                 .andExpect(status().is5xxServerError())
                 .andReturn();
 
