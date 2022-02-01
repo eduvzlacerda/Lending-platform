@@ -98,9 +98,23 @@ public class LendingProcessController {
 
     }
 
+    @PostMapping("/addLendingProcessV2")
+    public ResponseEntity<LendingProcessRequestDTO> addLendingProcessV2(@RequestParam UUID userID, @RequestParam UUID articleId) {
+
+        User lender = userService.getUser(userID);
+        Article article = articleService.getArticle(articleId);
+
+        return ok(
+                LendingProcessConverter.convertToDTO(
+                        lendingProcessService.addLendingProcess(lender, article)
+                )
+        );
+
+    }
+
     @PostMapping("/giveBackArticle")
     public ResponseEntity<LendingProcessRequestDTO> giveBackArticle(@RequestParam UUID lendingProcessId){
-       return ok(lendingProcessService.giveBackArticle(lendingProcessId));
+        return ok(lendingProcessService.giveBackArticle(lendingProcessId));
     }
 
 }

@@ -1,5 +1,5 @@
 export class Article {
-  id: string | undefined;
+  id!: string;
   title: string | undefined;
   description: string | undefined;
   articleStatus: string | undefined;
