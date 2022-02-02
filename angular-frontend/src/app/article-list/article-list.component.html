@@ -32,19 +32,18 @@
       </thead>
 
       <tbody>
-      <tr clickable *ngFor="let article of articles" [routerLink]="['/article/', article.id]">
-      <tr *ngFor="let article of articles" >
+      <tr *ngFor="let article of articles | filter : 'title' : searchString; let i = index" >
 
         <td>{{ article.title }}</td>
         <td>{{ article.description }}</td>
         <td>{{ article.articleStatus }}</td>
 
         <td (click)="borrow(article)" >
-          <button mat-button> Borrow </button>
+          <button class="btn btn-primary"> Borrow </button>
         </td>
 
         <td [routerLink]="['/article/', article.id]">
-          <button mat-button> Details </button>
+          <button class="btn btn-info" mat-button> Details </button>
         </td>
 
       </tr>
