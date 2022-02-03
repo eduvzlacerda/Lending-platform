@@ -14,6 +14,7 @@ public class ArticleConverter {
                 .articleStatus(article.getArticleStatus())
                 .description(article.getDescription())
                 .userId(article.getOwner().getId())
+                .ownerName(article.getOwner().getName())
                 .title(article.getTitle())
                 .build();
     }

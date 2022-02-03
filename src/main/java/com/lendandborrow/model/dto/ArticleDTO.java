@@ -20,6 +20,8 @@ public class ArticleDTO {
     @NotNull
     private UUID userId;
 
+    private String ownerName;
+
     @NotNull
     private String title;
 

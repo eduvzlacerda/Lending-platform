@@ -26,6 +26,7 @@
         <th scope="col">Title</th>
         <th scope="col">Description</th>
         <th scope="col">Status</th>
+        <th scope="col">Owner</th>
         <th scope="col">Borrow</th>
         <th scope="col">Details</th>
       </tr>
@@ -37,6 +38,7 @@
         <td>{{ article.title }}</td>
         <td>{{ article.description }}</td>
         <td>{{ article.articleStatus }}</td>
+        <td>{{ article.ownerName }}</td>
 
         <td (click)="borrow(article)" >
           <button class="btn btn-primary"> Borrow </button>
