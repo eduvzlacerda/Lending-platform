@@ -1,5 +1,3 @@
-# Problems and TODOs
-
 # Problems:
 - Access should be restricted in backend, not UI!
 - remove console.log from UI!
@@ -7,3 +5,8 @@
 - Do we really need article-detail-view for this simple app?
 - Get registered user somehow in backend?
 - id's in sample-data should be unique (even if they are in separate tables)
+- people can lend their own articles
+- lended articles should be hidden?
+- hidden articles should be hidden
+- without being logged in -> show error when one wants to borrow an article
+- register form: confirm password
