@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'jacoco'
 	id 'idea'
+	id "org.sonarqube" version "3.3"
 }
 
 group = 'com'
@@ -133,4 +134,9 @@ dependencies {
 	testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '4.1.0'
 	testImplementation 'org.apache.httpcomponents:httpclient'
 
+}
+sonarqube {
+	properties {
+		property "sonar.projectKey", "lending-platform"
+	}
 }
