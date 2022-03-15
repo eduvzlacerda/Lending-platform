@@ -11,14 +11,25 @@ import {concatMap, Observable} from "rxjs";
 })
 export class ArticleDetailComponent implements OnInit {
 
-  private article: Observable<Article> | undefined;
+  article!: Article;
   private id: string | null | undefined;
 
   constructor(private articleService: ArticleService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.article = new Article();
+
     this.id = this.route.snapshot.paramMap.get('id');
-    this.article = this.articleService.findById(this.id);
+
+
+    this.articleService.findById(this.id)
+      .subscribe(val => {
+        console.log(val)
+        this.article = val;
+      });
+
+
   }
 
 }

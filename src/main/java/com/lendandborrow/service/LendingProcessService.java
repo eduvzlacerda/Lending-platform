@@ -1,10 +1,11 @@
 package com.lendandborrow.service;
 
 import com.lendandborrow.ExcepetionHandling.exceptions.LendingProcessServiceException;
+import com.lendandborrow.model.Article;
 import com.lendandborrow.model.LendingProcess;
 import com.lendandborrow.model.User;
-import com.lendandborrow.model.dto.LendingProcessDTO;
 import com.lendandborrow.model.dto.LendingProcessRequestDTO;
+import com.lendandborrow.model.enums.EnumArticleStatus;
 import com.lendandborrow.model.enums.EnumLendingProcessState;
 import com.lendandborrow.repositories.LendingProcessRepository;
 import com.lendandborrow.utils.converters.LendingProcessConverter;
@@ -86,6 +87,24 @@ public class LendingProcessService {
 
     }
 
+    public LendingProcess addLendingProcess(User borrower, Article article) {
+
+        if(!article.getArticleStatus().equals(EnumArticleStatus.AVAILABLE)) {
+            throw new LendingProcessServiceException("Article must be in state '" + EnumArticleStatus.AVAILABLE + "'!");
+        }
+
+        LendingProcess lendingProcess = new LendingProcess();
+
+        lendingProcess.setLendingProcessState(EnumLendingProcessState.PENDING);
+        lendingProcess.setBorrower(borrower);
+        lendingProcess.setArticle(article);
+        lendingProcess.setLender(article.getOwner()); // TODO: Do we really have to save the lender in this db-relation?
+
+        lendingProcessRepository.save(lendingProcess);
+
+        return lendingProcess;
+
+    }
 
 
     public LendingProcess addLendingProcess(LendingProcess lendingProcess) {

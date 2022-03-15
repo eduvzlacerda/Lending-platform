@@ -19,4 +19,11 @@ export class MyRequestsComponent implements OnInit {
     });
   }
 
+  returnArticle(requestId: string) {
+      this.requestService.returnArticle(requestId).subscribe(data => {
+        this.requestService.findMyRequests().subscribe(data2 => {
+          this.lendingRequests = data2;
+        });
+      });
+  }
 }

@@ -15,6 +15,7 @@ const httpOptions = {
 export class ArticleService {
   constructor(private http: HttpClient) { }
 
+  // TODO: this get method referece to paging! add paging in UI as well!
   findAll(): Observable<Article[]> {
     return this.http.get<Article[]>(API_URL);
   }

@@ -28,8 +28,19 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/articles']);
       },
       error: err => {
-        this.errorMessage = err.error.message;
+
+        if(err.status == 401) {
+
+          this.errorMessage = "Wrong password or email!";
+
+        } else if(err.error) {
+
+          this.errorMessage = err.error.message;
+
+        }
+
         this.isLoginFailed = true;
+
       }
     });
   }

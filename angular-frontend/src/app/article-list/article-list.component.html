@@ -20,20 +20,35 @@
       </div>
     </form>
     <table class="table table-bordered table-striped">
+
       <thead class="thead-dark">
       <tr>
         <th scope="col">Title</th>
         <th scope="col">Description</th>
         <th scope="col">Status</th>
+        <th scope="col">Borrow</th>
+        <th scope="col">Details</th>
       </tr>
       </thead>
+
       <tbody>
-      <tr clickable *ngFor="let article of articles | filter : 'title' : searchString; let i = index" [routerLink]="['/article/', article.id]">
+      <tr *ngFor="let article of articles | filter : 'title' : searchString; let i = index" >
+
         <td>{{ article.title }}</td>
         <td>{{ article.description }}</td>
         <td>{{ article.articleStatus }}</td>
+
+        <td (click)="borrow(article)" >
+          <button class="btn btn-primary"> Borrow </button>
+        </td>
+
+        <td [routerLink]="['/article/', article.id]">
+          <button class="btn btn-info" mat-button> Details </button>
+        </td>
+
       </tr>
       </tbody>
+
     </table>
   </div>
 </div>
