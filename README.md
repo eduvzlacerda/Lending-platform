@@ -27,5 +27,4 @@ In case of using Windows:
 2. navigate into angular-frontend folder via command line
 3. ng build
 4. ng serve --open
-5. hope it works
 
